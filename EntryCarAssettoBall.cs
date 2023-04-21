@@ -4,35 +4,60 @@ using BepuUtilities.Memory;
 using AssettoServer.Network.Packets.Incoming;
 using AssettoServer.Network.Packets.Shared;
 using AssettoServer.Server;
-using BepuPhysics.Collidables;
+using System.Numerics;
+using Serilog;
 
 namespace AssettoBallPlugin;
+
 
 public class EntryCarAssettoBall
 {
 
-    private Simulation _simulation { set; get; }
-
     public EntryCar EntryCar { get; }
 
-    public BodyHandle bodyHandle { get; set; }
+    public BodyHandle HitboxHandle { get; private set; }
+
+    public Quaternion Rotation { get; private set; }
 
 
-    public EntryCarAssettoBall(EntryCar entryCar, Simulation simulation)
+    public EntryCarAssettoBall(EntryCar entryCar)
     {
         EntryCar = entryCar;
         EntryCar.PositionUpdateReceived += OnPositionUpdateReceived;
         EntryCar.ResetInvoked += OnResetInvoked;
-
-        _simulation = simulation;
-
-        var box = new Box(1, 1, 1);
-        var boxIndex = _simulation.Shapes.Add(box);
-        var boxPose = new RigidPose(EntryCar.Status.Position);
-        float boxMass = 1.0f;
-        bodyHandle = _simulation.Bodies.Add(BodyDescription.CreateDynamic(boxPose, box.ComputeInertia(boxMass), new CollidableDescription(boxIndex, 0.1f), new BodyActivityDescription(0.01f)));
-
     }
+
+    public void InitializeHitbox(Simulation simulation)
+    {
+        // Define the hitbox shape (e.g., a box) and add it to the simulation
+        var hitbox = new Box(2, 0.5f, 1); // Adjust the dimensions as needed
+        var hitboxIndex = simulation.Shapes.Add(hitbox);
+
+        // Set the initial position and orientation of the hitbox
+        var hitboxPose = new RigidPose(EntryCar.Status.Position);
+
+        // Set the initial mass and inertia of the hitbox
+        float hitboxMass = 10.0f;
+        var hitboxInertia = hitbox.ComputeInertia(hitboxMass);
+
+        // Create a dynamic body for the hitbox and add it to the simulation
+        HitboxHandle = simulation.Bodies.Add(BodyDescription.CreateKinematic(hitboxPose, new CollidableDescription(hitboxIndex, 0.1f), new BodyActivityDescription(0.01f)));
+        Console.WriteLine($"Car hitbox handle: {HitboxHandle}");
+    }
+
+    public void UpdateHitbox(Simulation simulation)
+    {
+        var hitbox = simulation.Bodies.GetBodyReference(HitboxHandle);
+
+        // Update the hitbox position
+        hitbox.Pose.Position = EntryCar.Status.Position + new Vector3(0,1.5f,0);
+        //Log.Debug($"Updated hitbox position: {hitbox.Pose.Position}");
+
+        // Update the hitbox velocity
+        hitbox.Velocity.Linear = EntryCar.Status.Velocity;
+        //Log.Debug($"Updated hitbox velocity: {hitbox.Velocity.Linear}");
+    }
+
 
     private void OnResetInvoked(EntryCar sender, EventArgs args)
     {

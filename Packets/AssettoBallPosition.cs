@@ -6,7 +6,7 @@ namespace AssettoBallPlugin.Packets;
 
 public class AssettoBallPosition : IOutgoingNetworkPacket
 {
-    public Vector3 Position { get; set; } = new Vector3(0, 100, 0);
+    public Vector3 Position { get; set; }
 
     public void ToWriter(ref PacketWriter writer)
     {

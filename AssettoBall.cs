@@ -32,7 +32,9 @@ public class AssettoBall : CriticalBackgroundService, IAssettoServerAutostart
 
     private Simulation _simulation;
 
-    private BodyHandle _sphereBodyHandle;
+    private BufferPool _bufferPool;
+
+    private AssettoBallStage _stage; 
 
     public AssettoBall(EntryCarManager entryCarManager, Func<EntryCar, EntryCarAssettoBall> entryCarFactory, AssettoBallConfiguration configuration, ACServerConfiguration serverConfiguration, CSPServerScriptProvider scriptProvider, IHostApplicationLifetime applicationLifetime) : base(applicationLifetime)
     {
@@ -41,23 +43,13 @@ public class AssettoBall : CriticalBackgroundService, IAssettoServerAutostart
         _serverConfiguration = serverConfiguration;
         _configuration = configuration;
 
-        var simulation = Simulation.Create(new BufferPool(), new DemoNarrowPhaseCallbacks(new SpringSettings(30, 1)), new DemoPoseIntegratorCallbacks(new Vector3(0, -10, 0)), new SolveDescription(8, 1));
-        // Add a sphere to the simulation.
-        var sphere = new Sphere(1f); // 0.5 is the radius of the sphere
-        var sphereIndex = simulation.Shapes.Add(sphere);
-        var spherePose = new RigidPose(new Vector3(0, 100, 0)); // Position the sphere 200 units above the floor
+        _bufferPool = new BufferPool();
 
-        float sphereMass = 1.0f;
+        _simulation = Simulation.Create(_bufferPool, new BasicNarrowPhaseCallbacks(), new DemoPoseIntegratorCallbacks(new Vector3(0, -10, 0)), new SolveDescription(8, 1));
 
-        _sphereBodyHandle = simulation.Bodies.Add(BodyDescription.CreateDynamic(spherePose, sphere.ComputeInertia(sphereMass), new CollidableDescription(sphereIndex, 0.1f), new BodyActivityDescription(0.01f)));
+        _stage = new AssettoBallStage(1, new Vector3(0,10,0));
 
-        // Add a floor to the simulation.
-        var floor = new Box(200, 1, 200);
-        var floorIndex = simulation.Shapes.Add(floor);
-        var floorPose = new RigidPose(new Vector3(0, 0, 0)); // Position the floor at 0
-        simulation.Statics.Add(new StaticDescription(floorPose, floorIndex));
-
-        _simulation = simulation;
+        _stage.AddToSimulation(_simulation, _bufferPool);
 
         Log.Debug("AssettoBall Loaded Baby");
 
@@ -72,23 +64,19 @@ public class AssettoBall : CriticalBackgroundService, IAssettoServerAutostart
         }
     }
 
-
-    private void SendPacket(ACTcpClient client, Vector3 position)
-    {
-        client.SendPacket(new AssettoBallPosition { Position = position});
-    }
-
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         foreach (var entryCar in _entryCarManager.EntryCars)
         {
-            _instances.Add(entryCar.SessionId, _entryCarFactory(entryCar));
+            var entryCarAssettoBall = _entryCarFactory(entryCar);
+            _instances.Add(entryCar.SessionId, entryCarAssettoBall);
+            entryCarAssettoBall.InitializeHitbox(_simulation);
         }
         while (!stoppingToken.IsCancellationRequested)
         {
             try
             {
-                var sphereBodyReference = _simulation.Bodies.GetBodyReference(_sphereBodyHandle);
+                var sphereBodyReference = _simulation.Bodies.GetBodyReference(_stage.Ball);
                 var spherePosition = sphereBodyReference.Pose.Position;
 
                 foreach (var instance in _instances)
@@ -97,12 +85,16 @@ public class AssettoBall : CriticalBackgroundService, IAssettoServerAutostart
                     if (client == null || !client.HasSentFirstUpdate)
                         continue;
 
+                    instance.Value.UpdateHitbox(_simulation);
+
+                    var carRef = _simulation.Bodies.GetBodyReference(instance.Value.HitboxHandle);
+                    var carPos = carRef.Pose.Position;
 
                     client.SendPacket(new AssettoBallPosition { Position = spherePosition });
+                    Log.Debug(spherePosition.ToString() + "cooool" + carPos.ToString());
 
                 }
-
-                _simulation.Timestep(1.0f / 33f);
+                _simulation.Timestep(1.0f / 60f);
             }
             catch (Exception ex)
             {
@@ -110,7 +102,7 @@ public class AssettoBall : CriticalBackgroundService, IAssettoServerAutostart
             }
             finally
             {
-                await Task.Delay(33, stoppingToken);
+                await Task.Delay(16, stoppingToken);
             }
         }
     }
