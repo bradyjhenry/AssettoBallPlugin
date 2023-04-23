@@ -16,6 +16,7 @@ public class GameStateManager
         _states = new Dictionary<GameState, IGameState>
         {
             { GameState.Initializing, new InitializingState() },
+            { GameState.Playing, new PlayingState() },
 
         };
 

@@ -16,7 +16,7 @@ public class AssettoBallConfiguration
 public class GameBallConfiguration
 {
     public int Radius { get; set; } = 1;
-    public Vector3 StartingPosition { get; set; } = new Vector3(0, 100, 0);
+    public Vector3 StartingPosition { get; set; } = new Vector3(0, 50, 0);
 }
 
 [UsedImplicitly(ImplicitUseKindFlags.Assign, ImplicitUseTargetFlags.WithMembers)]

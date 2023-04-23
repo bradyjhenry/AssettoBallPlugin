@@ -1,0 +1,15 @@
+C:\Users\me\OneDrive\Documents\Github\AssettoServer\AssettoBallPlugin\bin\Release\net7.0\linux-x64\AssettoBallPlugin.deps.json
+C:\Users\me\OneDrive\Documents\Github\AssettoServer\AssettoBallPlugin\bin\Release\net7.0\linux-x64\AssettoBallPlugin.runtimeconfig.json
+C:\Users\me\OneDrive\Documents\Github\AssettoServer\AssettoBallPlugin\bin\Release\net7.0\linux-x64\AssettoBallPlugin.dll
+C:\Users\me\OneDrive\Documents\Github\AssettoServer\AssettoBallPlugin\bin\Release\net7.0\linux-x64\BepuPhysics.dll
+C:\Users\me\OneDrive\Documents\Github\AssettoServer\AssettoBallPlugin\bin\Release\net7.0\linux-x64\BepuUtilities.dll
+C:\Users\me\OneDrive\Documents\Github\AssettoServer\AssettoBallPlugin\obj\Release\net7.0\linux-x64\AssettoBallPlugin.csproj.AssemblyReference.cache
+C:\Users\me\OneDrive\Documents\Github\AssettoServer\AssettoBallPlugin\obj\Release\net7.0\linux-x64\AssettoBallPlugin.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\me\OneDrive\Documents\Github\AssettoServer\AssettoBallPlugin\obj\Release\net7.0\linux-x64\AssettoBallPlugin.AssemblyInfoInputs.cache
+C:\Users\me\OneDrive\Documents\Github\AssettoServer\AssettoBallPlugin\obj\Release\net7.0\linux-x64\AssettoBallPlugin.AssemblyInfo.cs
+C:\Users\me\OneDrive\Documents\Github\AssettoServer\AssettoBallPlugin\obj\Release\net7.0\linux-x64\AssettoBallPlugin.csproj.CoreCompileInputs.cache
+C:\Users\me\OneDrive\Documents\Github\AssettoServer\AssettoBallPlugin\obj\Release\net7.0\linux-x64\AssettoBallPlugin.csproj.CopyComplete
+C:\Users\me\OneDrive\Documents\Github\AssettoServer\AssettoBallPlugin\obj\Release\net7.0\linux-x64\AssettoBallPlugin.dll
+C:\Users\me\OneDrive\Documents\Github\AssettoServer\AssettoBallPlugin\obj\Release\net7.0\linux-x64\refint\AssettoBallPlugin.dll
+C:\Users\me\OneDrive\Documents\Github\AssettoServer\AssettoBallPlugin\obj\Release\net7.0\linux-x64\AssettoBallPlugin.genruntimeconfig.cache
+C:\Users\me\OneDrive\Documents\Github\AssettoServer\AssettoBallPlugin\obj\Release\net7.0\linux-x64\ref\AssettoBallPlugin.dll

@@ -20,12 +20,21 @@ public class GameBall
     {
         Material = new SimpleMaterial
         {
-            FrictionCoefficient = 1,
+            FrictionCoefficient = 0.2f,
             MaximumRecoveryVelocity = float.MaxValue,
             SpringSettings = new SpringSettings(10f, 0.001f)
         };
         SphereRadius = sphereRadius;
         SphereInitialPosition = sphereInitialPosition;
+    }
+
+    public void KeepAwake(Simulation simulation)
+    {
+        var bodyReference = simulation.Bodies.GetBodyReference(BodyHandle);
+        if (!bodyReference.Awake)
+        {
+            bodyReference.Awake = true;
+        }
     }
 
     public void AddToSimulation(Simulation simulation, CollidableProperty<SimpleMaterial> collidableMaterials)
@@ -36,7 +45,8 @@ public class GameBall
 
         float sphereMass = 1.0f;
 
-        BodyHandle = simulation.Bodies.Add(BodyDescription.CreateDynamic(spherePose, sphere.ComputeInertia(sphereMass), new CollidableDescription(sphereIndex, 0.1f), new BodyActivityDescription(0.01f)));
+
+        BodyHandle = simulation.Bodies.Add(BodyDescription.CreateDynamic(spherePose, sphere.ComputeInertia(sphereMass), new CollidableDescription(sphereIndex, 0.1f), new BodyActivityDescription(sleepThreshold: 1e-9f, minimumTimestepCountUnderThreshold: 255)));
         collidableMaterials.Allocate(BodyHandle) = Material;
         Console.WriteLine($"Ball handle: {BodyHandle}");
     }

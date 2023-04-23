@@ -21,7 +21,7 @@ public class GameStage
 
         Material = new SimpleMaterial
         {
-            FrictionCoefficient = 1,
+            FrictionCoefficient = 1f,
             MaximumRecoveryVelocity = 2,
             SpringSettings = new SpringSettings(30, 1)
         };
@@ -33,7 +33,7 @@ public class GameStage
         // Add a floor to the simulation.
         var floor = new Box(_floorWidth, 1, _floorLength);
         var floorIndex = simulation.Shapes.Add(floor);
-        var floorPose = new RigidPose(new Vector3(0, -1, 0)); // Position the floor at 0
+        var floorPose = new RigidPose(new Vector3(0, -0.5f, 0)); // Position the floor at 0
 
         collidableMaterials.Allocate(simulation.Statics.Add(new StaticDescription(floorPose, floorIndex))) = Material;
 
@@ -68,6 +68,7 @@ public class GameStage
             Pose = wallPose,
             Shape = wallShapeIndex,
         };
+
 
         simulation.Statics.Add(wallDescription);
     }

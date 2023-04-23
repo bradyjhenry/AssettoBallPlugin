@@ -49,7 +49,7 @@ public class EntryCarAssettoBall
     public void InitializeHitbox(Simulation simulation)
     {
         // Define the hitbox shape (e.g., a box) and add it to the simulation
-        var hitbox = new Box(1, 1f, 2); // Adjust the dimensions as needed
+        var hitbox = new Box(0.5f, 0.5f, 0.5f); // Adjust the dimensions as needed
         var hitboxIndex = simulation.Shapes.Add(hitbox);
 
         // Set the initial position and orientation of the hitbox
@@ -69,6 +69,10 @@ public class EntryCarAssettoBall
 
         // Update the hitbox position
         hitbox.Pose.Position = position;
+
+        hitbox.Velocity = EntryCar.Status.Velocity;
+
+        Log.Debug($"Hb Vel: {hitbox.Velocity}, Car Vel: {EntryCar.Status.Velocity}");
 
         float yaw = MathHelper.ToRadians(rotation.Y);
         float pitch = MathHelper.ToRadians(rotation.X);
