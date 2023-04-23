@@ -1,7 +1,5 @@
 ﻿using BepuPhysics;
-using BepuPhysics.Collidables;
 using BepuUtilities.Memory;
-using AssettoServer.Network.Tcp;
 using AssettoServer.Server;
 using AssettoServer.Server.Configuration;
 using AssettoServer.Server.Plugin;
@@ -10,14 +8,11 @@ using Microsoft.Extensions.Hosting;
 using AssettoBallPlugin.Packets;
 using Serilog;
 using System.Reflection;
-using BepuPhysics.CollisionDetection;
 using System.Numerics;
-using BepuUtilities;
-using BepuPhysics.Constraints;
 
 namespace AssettoBallPlugin;
 
-public class AssettoBall : CriticalBackgroundService, IAssettoServerAutostart
+public class AssettoBall : CriticalBackgroundService, IAssettoServerAutostart, IGameStateChangeHandler
 {
 
     private readonly EntryCarManager _entryCarManager;
@@ -30,11 +25,7 @@ public class AssettoBall : CriticalBackgroundService, IAssettoServerAutostart
 
     private readonly AssettoBallConfiguration _configuration;
 
-    private Simulation _simulation;
-
-    private BufferPool _bufferPool;
-
-    private AssettoBallStage _stage; 
+    private GameStateManager _gameStateManager;
 
     public AssettoBall(EntryCarManager entryCarManager, Func<EntryCar, EntryCarAssettoBall> entryCarFactory, AssettoBallConfiguration configuration, ACServerConfiguration serverConfiguration, CSPServerScriptProvider scriptProvider, IHostApplicationLifetime applicationLifetime) : base(applicationLifetime)
     {
@@ -43,16 +34,8 @@ public class AssettoBall : CriticalBackgroundService, IAssettoServerAutostart
         _serverConfiguration = serverConfiguration;
         _configuration = configuration;
 
-        _bufferPool = new BufferPool();
-
-        _simulation = Simulation.Create(_bufferPool, new BasicNarrowPhaseCallbacks(), new DemoPoseIntegratorCallbacks(new Vector3(0, -10, 0)), new SolveDescription(8, 1));
-
-        _stage = new AssettoBallStage(1, new Vector3(0,10,0));
-
-        _stage.AddToSimulation(_simulation, _bufferPool);
-
-        Log.Debug("AssettoBall Loaded Baby");
-
+        _gameStateManager = new GameStateManager(new GameContext(this, _configuration, _instances));
+        
         if (_serverConfiguration.Extra.EnableClientMessages)
         {
             using var streamReader = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("AssettoBallPlugin.lua.assettoballplugin.lua")!);
@@ -62,6 +45,8 @@ public class AssettoBall : CriticalBackgroundService, IAssettoServerAutostart
         {
             throw new ConfigurationException("AssettoBall: EnableClientMessages must be set to true in extra_cfg man!");
         }
+
+        Log.Debug("AssettoBall Loaded My Man");
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -70,31 +55,15 @@ public class AssettoBall : CriticalBackgroundService, IAssettoServerAutostart
         {
             var entryCarAssettoBall = _entryCarFactory(entryCar);
             _instances.Add(entryCar.SessionId, entryCarAssettoBall);
-            entryCarAssettoBall.InitializeHitbox(_simulation);
         }
+
+        _gameStateManager.Context.UpdateInstances(_instances);
+
         while (!stoppingToken.IsCancellationRequested)
         {
             try
             {
-                var sphereBodyReference = _simulation.Bodies.GetBodyReference(_stage.Ball);
-                var spherePosition = sphereBodyReference.Pose.Position;
-
-                foreach (var instance in _instances)
-                {
-                    var client = instance.Value.EntryCar.Client;
-                    if (client == null || !client.HasSentFirstUpdate)
-                        continue;
-
-                    instance.Value.UpdateHitbox(_simulation);
-
-                    var carRef = _simulation.Bodies.GetBodyReference(instance.Value.HitboxHandle);
-                    var carPos = carRef.Pose.Position;
-
-                    client.SendPacket(new AssettoBallPosition { Position = spherePosition });
-                    Log.Debug(spherePosition.ToString() + "cooool" + carPos.ToString());
-
-                }
-                _simulation.Timestep(1.0f / 60f);
+                _gameStateManager.Update();
             }
             catch (Exception ex)
             {
@@ -105,5 +74,10 @@ public class AssettoBall : CriticalBackgroundService, IAssettoServerAutostart
                 await Task.Delay(16, stoppingToken);
             }
         }
+    }
+
+    public void OnStateChangeRequest(GameState newState)
+    {
+        _gameStateManager.SetState(newState);
     }
 }

@@ -29,6 +29,11 @@
     </ItemGroup>
 
     <ItemGroup>
+        <None Remove="lua\assettoballui.lua" />
+        <EmbeddedResource Include="lua\assettoballui.lua" />
+    </ItemGroup>
+
+    <ItemGroup>
       <PackageReference Include="BepuPhysics" Version="2.4.0" />
     </ItemGroup>
 

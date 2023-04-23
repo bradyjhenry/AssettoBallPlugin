@@ -1,82 +1,67 @@
-local ball = {
-    position = vec3(0, 0, 0),
-    targetPosition = vec3(0, 0, 0)
-}
+Ball = {}
+Ball.__index = Ball
 
-local got_message = false;
-
-local message_in = nil;
-
-local function normalize(v)
-    local length = math.sqrt(v.x * v.x + v.y * v.y + v.z * v.z)
-    return vec3(v.x / length, v.y / length, v.z / length)
+function Ball.new(position, velocity)
+    local self = setmetatable({}, Ball)
+    self.position = position
+    self.velocity = velocity
+    return self
 end
 
-local function dot(v1, v2)
-    return v1.x * v2.x + v1.y * v2.y + v2.z * v2.z
+function Ball:update(dt)
+    self.position = self.position + self.velocity * dt
 end
 
-local assettoBallEvent = ac.OnlineEvent({
-    ac.StructItem.key("assettoBallPosition"),
-    X = ac.StructItem.float(),
-    Y = ac.StructItem.float(),
-    Z = ac.StructItem.float()
-}, function(sender, message)
-    if sender ~= nil then return end
-    got_message = true;
-    ball.targetPosition = vec3(message.X,message.Y,message.Z);
-end)
+--Start the ball under the map before we get the server position...
+local ballPosition = vec3(0,-10,0)
+local ballVelocity = vec3(0,0,0)
 
-local function is_ball_visible_and_angle(ballPos)
-    -- Get camera properties
-    local camPos = ac.getCameraPosition()
-    local camDir = ac.getCameraForward()
-    local camFOV = ac.getCameraFOV()
-  
-    -- Calculate the vector from the camera position to the ball position
-    local vecToBall = ballPos:sub(camPos)
-  
-    -- Normalize camera direction and vector to ball
-    local camDirNormalized = normalize(camDir)
-    local vecToBallNormalized = normalize(vecToBall)
-  
-    -- Calculate dot product and angle between camera direction and vector to ball
-    local dotProduct = dot(vecToBallNormalized, camDirNormalized)
-    local angleToBall = math.acos(dotProduct) * (180 / math.pi) -- Convert radians to degrees
-  
-    -- Check if the angle is within the camera's FOV
-    local isVisible = angleToBall <= (camFOV / 2)
-  
-    return isVisible, angleToBall
-  end
-  
+local ball = Ball.new(ballPosition, ballVelocity)
 
+function onServerUpdate(recievedPosition, recievedVelocity)
+    local positionError = recievedPosition - ball.position
+    local velocityError = recievedVelocity - ball.velocity
 
-function script.drawUI()
-    ui.sameLine()
-    ui.pushFont(ui.Font.Title)
-    if got_message then
-        --local isVisible, angleToBall = is_ball_visible_and_angle(ball.targetPosition)
-        --ui.text("is ball visible? " .. tostring(isVisible) .. "angle to ball: ?" .. tostring(angleToBall))
-    else 
-        ui.text("coool")
+    local positionThreshold = 0.1
+    local velocityThreshold = 0.1
+
+    local lerpFactor = 0.1
+
+    if positionError:length() > positionThreshold then
+        ball.position = vec3Lerp(ball.position, recievedPosition, lerpFactor)
     end
-    ui.popFont()
+
+    if velocityError:length() > velocityThreshold then
+        ball.velocity = vec3Lerp(ball.velocity, recievedVelocity, lerpFactor)
+    end
 end
 
-local smoothFactor = 0.1 -- Controls the smoothness of the movement
-
-function Lerp(a, b, t)
+function vec3Lerp(a, b, t)
     local x = a.x + (b.x - a.x) * t
     local y = a.y + (b.y - a.y) * t
     local z = a.z + (b.z - a.z) * t
-    return {x = x, y = y, z = z}
+    return vec3(x, y, z)
+end
+
+local assettoBallEvent = ac.OnlineEvent({
+    ac.StructItem.key("assettoBallPacket"),
+    PosX = ac.StructItem.float(),
+    PosY = ac.StructItem.float(),
+    PosZ = ac.StructItem.float(),
+    VelX = ac.StructItem.float(),
+    VelY = ac.StructItem.float(),
+    VelZ = ac.StructItem.float()
+}, function(sender, message)
+    if sender ~= nil then return end
+    onServerUpdate(vec3(message.PosX,message.PosY,message.PosZ), vec3(message.VelX,message.VelY,message.VelZ))
+end)
+
+function script.update(dt)
+    ball:update(dt)
 end
 
 function DrawSphere(center, radius, latSegments, longSegments)
 
-  
-    -- Calculate the delta angle for latitude and longitude
     local latStep = math.pi / latSegments
     local longStep = 2 * math.pi / longSegments
   
@@ -110,15 +95,18 @@ function DrawSphere(center, radius, latSegments, longSegments)
         local v01 = vec3(center.x + x01, center.y + y0, center.z + z01)
         local v10 = vec3(center.x + x10, center.y + y1, center.z + z10)
         local v11 = vec3(center.x + x11, center.y + y1, center.z + z11)
-  
-        local uv00 = vec2(i / latSegments, j / longSegments)
-        local uv01 = vec2(i / latSegments, (j + 1) / longSegments)
-        local uv10 = vec2((i + 1) / latSegments, j / longSegments)
-        local uv11 = vec2((i + 1) / latSegments, (j + 1) / longSegments)
-  
+
+        -- Determine the color based on the sum of i and j
+        local color
+        if (i + j) % 2 == 0 then
+          color = rgbm(1, 1, 1, 1) -- White
+        else
+          color = rgbm(0, 0, 0, 1) -- Black
+        end
+
         -- Draw first triangle
         render.glBegin(render.GLPrimitiveType.Triangles)
-        render.glSetColor(rgbm(1,1,1,1))
+        render.glSetColor(color)
         render.glVertex(v00)
         render.glVertex(v10)
         render.glVertex(v01)
@@ -126,7 +114,7 @@ function DrawSphere(center, radius, latSegments, longSegments)
   
         -- Draw second triangle
         render.glBegin(render.GLPrimitiveType.Triangles)
-        render.glSetColor(rgbm(1,1,1,1))
+        render.glSetColor(color)
         render.glVertex(v01)
         render.glVertex(v10)
         render.glVertex(v11)
@@ -134,20 +122,11 @@ function DrawSphere(center, radius, latSegments, longSegments)
       end
     end
 end
+
   
 
 function script.draw3D(dt)
     render.setDepthMode(render.DepthMode.LessEqual)
-    render.setCullMode(render.CullMode.None)
-
-    local currentPosition = ball.position
-    local targetPosition = ball.targetPosition
-
-    -- Lerp between the current position and the target position using the smoothFactor
-    local newPosition = Lerp(currentPosition, targetPosition, smoothFactor)
-
-    DrawSphere(newPosition, 1, 8, 8)
-    --render.debugSphere(newPosition, 1, rgbm(1,1,1,1))
-
-    ball.position = newPosition
+    render.setCullMode(render.CullMode.ShadowsDouble)
+    DrawSphere(ball.position, 1, 8, 8)
 end

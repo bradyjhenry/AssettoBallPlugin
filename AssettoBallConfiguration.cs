@@ -7,10 +7,32 @@ namespace AssettoBallPlugin;
 
 public class AssettoBallConfiguration
 {
-    public Vector3 StartingPosition { get; set; }
-    public Vector3 Forward { get; set; }
-
-    public int Width { get; set; }
-    public int Depth { get; set; }
-    public int Height { get; set; }
+    public GameBallConfiguration GameBall { get; init; } = new();
+    public GameStageConfiguration GameStage { get; init; } = new();
 }
+
+[UsedImplicitly(ImplicitUseKindFlags.Assign, ImplicitUseTargetFlags.WithMembers)]
+
+public class GameBallConfiguration
+{
+    public int Radius { get; set; } = 1;
+    public Vector3 StartingPosition { get; set; } = new Vector3(0, 100, 0);
+}
+
+[UsedImplicitly(ImplicitUseKindFlags.Assign, ImplicitUseTargetFlags.WithMembers)]
+
+public class GameStageConfiguration 
+{ 
+    public int Width { get; set; } = 200;
+    public int Length { get; set; } = 200;
+    public int Height { get; set; } = 20;
+
+}
+
+public class GameStateConfiguration 
+{
+    public int MinPlayers { get; set; } = 1;
+    public int MaxScore { get; set; } = 10;
+}
+
+
