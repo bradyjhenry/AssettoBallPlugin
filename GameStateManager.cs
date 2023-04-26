@@ -17,7 +17,6 @@ public class GameStateManager
         {
             { GameState.Initializing, new InitializingState() },
             { GameState.Playing, new PlayingState() },
-
         };
 
         _currentState = _states[GameState.Initializing];

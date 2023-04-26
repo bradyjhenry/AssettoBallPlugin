@@ -24,7 +24,7 @@ public class GameBallConfiguration
 public class GameStageConfiguration 
 { 
     public int Width { get; set; } = 200;
-    public int Length { get; set; } = 200;
+    public int Length { get; set; } = 100;
     public int Height { get; set; } = 20;
 
 }

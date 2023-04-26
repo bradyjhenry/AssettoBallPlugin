@@ -67,6 +67,8 @@ public class EntryCarAssettoBall
 
         var hitbox = simulation.Bodies.GetBodyReference(HitboxHandle);
 
+        hitbox.Awake = true;
+
         // Update the hitbox position
         hitbox.Pose.Position = position;
 

@@ -9,6 +9,8 @@ function Ball.new(position, velocity)
     return self
 end
 
+local recievedResponse = false; 
+
 
 function Ball:update(dt)
     self.position = self.position + self.velocity * dt
@@ -112,6 +114,9 @@ local assettoBallEvent = ac.OnlineEvent({
     VelZ = ac.StructItem.float()
 }, function(sender, message)
     if sender ~= nil then return end
+    if recievedResponse == false then
+        recievedResponse = true;
+    end
     onServerUpdate(vec3(message.PosX,message.PosY,message.PosZ), vec3(message.VelX,message.VelY,message.VelZ))
 end)
 
@@ -149,7 +154,9 @@ end
 
 
 function script.update(dt)
-    ball:update(dt)
+    if recievedResponse then
+        ball:update(dt)
+    end
 end
 
 function DrawSphere(center, radius, latSegments, longSegments, rotationQuaternion)
@@ -226,5 +233,7 @@ function script.draw3D(dt)
     render.setDepthMode(render.DepthMode.LessEqual)
     render.setCullMode(render.CullMode.ShadowsDouble)
 
-    DrawSphere(ball.position, 1, 8, 8, ball.rotationQuaternion)
+    if recievedResponse then
+        DrawSphere(ball.position, 1, 8, 8, ball.rotationQuaternion)
+    end
 end
