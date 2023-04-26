@@ -9,6 +9,7 @@ using Serilog;
 using AssettoServer.Network.Tcp;
 using BepuUtilities;
 
+
 namespace AssettoBallPlugin;
 
 public class EntryCarAssettoBall
@@ -22,10 +23,16 @@ public class EntryCarAssettoBall
 
     public event EventHandler? ClientFirstUpdateSent;
 
+    private Vector3 _previousAngle;
+
+    private DateTime _previousTimestamp;
+
     public EntryCarAssettoBall(EntryCar entryCar)
     {
         EntryCar = entryCar;
         EntryCar.PositionUpdateReceived += OnPositionUpdateReceived;
+        _previousAngle = EntryCar.Status.Rotation;
+        _previousTimestamp = DateTime.UtcNow;
 
         if (EntryCar.Client != null)
         {
@@ -49,11 +56,11 @@ public class EntryCarAssettoBall
     public void InitializeHitbox(Simulation simulation)
     {
         // Define the hitbox shape (e.g., a box) and add it to the simulation
-        var hitbox = new Box(0.5f, 0.5f, 0.5f); // Adjust the dimensions as needed
+        var hitbox = new Box(2f, 1f, 4f); // Adjust the dimensions as needed
         var hitboxIndex = simulation.Shapes.Add(hitbox);
 
         // Set the initial position and orientation of the hitbox
-        var hitboxPose = new RigidPose(EntryCar.Status.Position);
+        var hitboxPose = new RigidPose(EntryCar.Status.Position + new Vector3(0,1,0));
 
         // Create a dynamic body for the hitbox and add it to the simulation
         HitboxHandle = simulation.Bodies.Add(BodyDescription.CreateKinematic(hitboxPose, new CollidableDescription(hitboxIndex, 0.1f), new BodyActivityDescription(0.01f)));
@@ -62,7 +69,7 @@ public class EntryCarAssettoBall
 
     public void UpdateHitbox(Simulation simulation)
     {
-        var position = EntryCar.Status.Position;
+        var position = EntryCar.Status.Position + new Vector3(0, 1, 0);
         var rotation = EntryCar.Status.Rotation;
 
         var hitbox = simulation.Bodies.GetBodyReference(HitboxHandle);
@@ -72,9 +79,7 @@ public class EntryCarAssettoBall
         // Update the hitbox position
         hitbox.Pose.Position = position;
 
-        hitbox.Velocity = EntryCar.Status.Velocity;
-
-        Log.Debug($"Hb Vel: {hitbox.Velocity}, Car Vel: {EntryCar.Status.Velocity}");
+        hitbox.Velocity.Linear = EntryCar.Status.Velocity;
 
         float yaw = MathHelper.ToRadians(rotation.Y);
         float pitch = MathHelper.ToRadians(rotation.X);
@@ -84,6 +89,24 @@ public class EntryCarAssettoBall
 
         // Update the hitbox rotation
         hitbox.Pose.Orientation = quaternionRotation;
+
+        // Calculate the time elapsed since the last update
+        DateTime currentTimestamp = DateTime.UtcNow;
+        double timeElapsed = (currentTimestamp - _previousTimestamp).TotalSeconds;
+
+        // Calculate the difference in angle
+        Vector3 currentAngle = EntryCar.Status.Rotation;
+        Vector3 angleDifference = currentAngle - _previousAngle;
+
+        // Calculate angular velocity by dividing the angle difference by the time elapsed
+        Vector3 angularVelocity = angleDifference / (float)timeElapsed;
+
+        // Update the hitbox's angular velocity
+        hitbox.Velocity.Angular = angularVelocity;
+
+        // Store the current angle and timestamp for the next update
+        _previousAngle = currentAngle;
+        _previousTimestamp = currentTimestamp;
     }
 
     private void OnPositionUpdateReceived(EntryCar sender, in PositionUpdateIn positionUpdateIn)

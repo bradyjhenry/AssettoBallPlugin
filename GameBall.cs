@@ -43,7 +43,7 @@ public class GameBall
         var sphereIndex = simulation.Shapes.Add(sphere);
         var spherePose = new RigidPose(SphereInitialPosition);
 
-        float sphereMass = 1.0f;
+        float sphereMass = 10.0f;
 
 
         BodyHandle = simulation.Bodies.Add(BodyDescription.CreateDynamic(spherePose, sphere.ComputeInertia(sphereMass), new CollidableDescription(sphereIndex, 0.1f), new BodyActivityDescription(sleepThreshold: 1e-9f, minimumTimestepCountUnderThreshold: 255)));
