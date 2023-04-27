@@ -66,8 +66,8 @@ function Ball:getRotation(dt)
     local normalizedHorizontalVelocity = normalized(horizontalVelocity)
     local rotationAxis = vec3_cross(normalizedHorizontalVelocity, up)
     local distance = horizontalVelocity:length() * dt
-    local radius = 1 -- assuming the sphere's radius is 1
-    local rotationAngle = math.deg(distance / radius) -- converting radians to degrees
+    local radius = 1
+    local rotationAngle = math.deg(distance / radius)
 
     return rotationAxis, rotationAngle
 end

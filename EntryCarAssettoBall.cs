@@ -23,16 +23,11 @@ public class EntryCarAssettoBall
 
     public event EventHandler? ClientFirstUpdateSent;
 
-    private Vector3 _previousAngle;
-
-    private DateTime _previousTimestamp;
 
     public EntryCarAssettoBall(EntryCar entryCar)
     {
         EntryCar = entryCar;
         EntryCar.PositionUpdateReceived += OnPositionUpdateReceived;
-        _previousAngle = EntryCar.Status.Rotation;
-        _previousTimestamp = DateTime.UtcNow;
 
         if (EntryCar.Client != null)
         {
@@ -56,7 +51,7 @@ public class EntryCarAssettoBall
     public void InitializeHitbox(Simulation simulation)
     {
         // Define the hitbox shape (e.g., a box) and add it to the simulation
-        var hitbox = new Box(2f, 1f, 4f); // Adjust the dimensions as needed
+        var hitbox = new Box(4f, 1f, 2f); // Adjust the dimensions as needed
         var hitboxIndex = simulation.Shapes.Add(hitbox);
 
         // Set the initial position and orientation of the hitbox
@@ -90,23 +85,6 @@ public class EntryCarAssettoBall
         // Update the hitbox rotation
         hitbox.Pose.Orientation = quaternionRotation;
 
-        // Calculate the time elapsed since the last update
-        DateTime currentTimestamp = DateTime.UtcNow;
-        double timeElapsed = (currentTimestamp - _previousTimestamp).TotalSeconds;
-
-        // Calculate the difference in angle
-        Vector3 currentAngle = EntryCar.Status.Rotation;
-        Vector3 angleDifference = currentAngle - _previousAngle;
-
-        // Calculate angular velocity by dividing the angle difference by the time elapsed
-        Vector3 angularVelocity = angleDifference / (float)timeElapsed;
-
-        // Update the hitbox's angular velocity
-        hitbox.Velocity.Angular = angularVelocity;
-
-        // Store the current angle and timestamp for the next update
-        _previousAngle = currentAngle;
-        _previousTimestamp = currentTimestamp;
     }
 
     private void OnPositionUpdateReceived(EntryCar sender, in PositionUpdateIn positionUpdateIn)

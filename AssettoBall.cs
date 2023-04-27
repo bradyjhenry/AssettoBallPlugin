@@ -40,6 +40,9 @@ public class AssettoBall : CriticalBackgroundService, IAssettoServerAutostart, I
         {
             using var streamReader = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("AssettoBallPlugin.lua.assettoballplugin.lua")!);
             scriptProvider.AddScript(streamReader.ReadToEnd(), "assettoballplugin.lua");
+
+            using var streamReader2 = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("AssettoBallPlugin.lua.assettoballui.lua")!);
+            scriptProvider.AddScript(streamReader2.ReadToEnd(), "assettoballui.lua");
         }
         else
         {

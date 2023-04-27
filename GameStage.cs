@@ -37,7 +37,7 @@ public class GameStage
 
         collidableMaterials.Allocate(simulation.Statics.Add(new StaticDescription(floorPose, floorIndex))) = Material;
 
-        var wallThickness = 1;
+        var wallThickness = 5;
 
         var cornerRadius = 10;
 
@@ -53,10 +53,10 @@ public class GameStage
         // Front wall
         AddWall(simulation, new Vector3(0, _wallHeight / 2, _floorLength / 2 + wallThickness / 2), new Vector3(_floorWidth, _wallHeight, wallThickness));
 
-        AddInnerRoundedCorner(simulation, new Vector3(-_floorWidth / 2 + cornerRadius, _wallHeight / 2, -_floorLength / 2 + cornerRadius), cornerRadius, _wallHeight, Math.PI);
-        AddInnerRoundedCorner(simulation, new Vector3(-_floorWidth / 2 + cornerRadius, _wallHeight / 2, _floorLength / 2 - cornerRadius), cornerRadius, _wallHeight, -Math.PI / 2);
-        AddInnerRoundedCorner(simulation, new Vector3(_floorWidth / 2 - cornerRadius, _wallHeight / 2, -_floorLength / 2 + cornerRadius), cornerRadius, _wallHeight, Math.PI / 2);
-        AddInnerRoundedCorner(simulation, new Vector3(_floorWidth / 2 - cornerRadius, _wallHeight / 2, _floorLength / 2 - cornerRadius), cornerRadius, _wallHeight, 0);
+        AddInnerRoundedCorner(simulation, new Vector3(-_floorWidth / 2 + cornerRadius, _wallHeight / 2, -_floorLength / 2 + cornerRadius), cornerRadius, _wallHeight);
+        AddInnerRoundedCorner(simulation, new Vector3(-_floorWidth / 2 + cornerRadius, _wallHeight / 2, _floorLength / 2 - cornerRadius), cornerRadius, _wallHeight);
+        AddInnerRoundedCorner(simulation, new Vector3(_floorWidth / 2 - cornerRadius, _wallHeight / 2, -_floorLength / 2 + cornerRadius), cornerRadius, _wallHeight);
+        AddInnerRoundedCorner(simulation, new Vector3(_floorWidth / 2 - cornerRadius, _wallHeight / 2, _floorLength / 2 - cornerRadius), cornerRadius, _wallHeight);
     }
 
     private void AddWall(Simulation simulation, Vector3 position, Vector3 dimensions, Quaternion? rotation = null)
@@ -80,16 +80,18 @@ public class GameStage
     }
 
 
-    private void AddInnerRoundedCorner(Simulation simulation, Vector3 cornerCenter, float cornerRadius, float wallHeight, double angleOffset)
+    private void AddInnerRoundedCorner(Simulation simulation, Vector3 cornerCenter, float cornerRadius, float wallHeight)
     {
-        int numSegments = 10;
+        int numSegments = 4;
         double angleIncrement = Math.PI / 2 / numSegments;
+
+        double angleOffset = Math.Atan2(cornerCenter.Z, cornerCenter.X) + Math.PI / 4;
 
         for (int i = 0; i < numSegments; i++)
         {
-            double angle = angleOffset + i * angleIncrement;
+            double angle = angleOffset - i * angleIncrement;
             Vector3 segmentPosition = cornerCenter + new Vector3((cornerRadius - 0.5f) * (float)Math.Cos(angle), 0, (cornerRadius - 0.5f) * (float)Math.Sin(angle));
-            Quaternion rotation = Quaternion.CreateFromAxisAngle(Vector3.UnitY, -(float)angle + (float)Math.PI / 2);
+            Quaternion rotation = Quaternion.CreateFromAxisAngle(Vector3.UnitY, -(float)angle - (float)Math.PI / 2);
 
             AddWall(simulation, segmentPosition, new Vector3(cornerRadius * (float)angleIncrement, wallHeight, 1), rotation);
         }

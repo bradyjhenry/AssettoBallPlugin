@@ -38,7 +38,10 @@ public class PlayingState : IGameState
 
         foreach (var instance in context.Instances)
         {
-            instance.Value.Initialize(_simulation);
+            if (instance.Value.EntryCar.Client != null)
+            {
+                instance.Value.Initialize(_simulation);
+            }
         }
 
     }
