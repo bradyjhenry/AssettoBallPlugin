@@ -26,6 +26,9 @@
     <ItemGroup>
         <None Remove="lua\assettoballplugin.lua" />
         <EmbeddedResource Include="lua\assettoballplugin.lua" />
+        <None Update="Res\balltexture.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>

@@ -1,3 +1,4 @@
+C:\Users\me\OneDrive\Documents\Github\AssettoServer\AssettoBallPlugin\bin\Release\net7.0\publish\linux-x64\Res\balltexture.png
 C:\Users\me\OneDrive\Documents\Github\AssettoServer\AssettoBallPlugin\bin\Release\net7.0\publish\linux-x64\AssettoBallPlugin.dll
 C:\Users\me\OneDrive\Documents\Github\AssettoServer\AssettoBallPlugin\bin\Release\net7.0\publish\linux-x64\AssettoBallPlugin.deps.json
 C:\Users\me\OneDrive\Documents\Github\AssettoServer\AssettoBallPlugin\bin\Release\net7.0\publish\linux-x64\AssettoBallPlugin.runtimeconfig.json

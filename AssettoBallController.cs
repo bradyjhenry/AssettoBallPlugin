@@ -1,10 +1,11 @@
 ﻿using AssettoServer.Server;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
 
 namespace AssettoBallPlugin;
 
 [ApiController]
-[Route("RallyPlugin")]
+[Route("AssettoBallPlugin")]
 public class RallyController : ControllerBase
 {
     private readonly ACServer _server;
@@ -19,4 +20,12 @@ public class RallyController : ControllerBase
     [HttpGet("config")]
     [Produces("text/x-lua", new string[] { })]
     public AssettoBallConfiguration Config() => _configuration;
+
+    private static readonly string BasePath = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Res");
+
+    [HttpGet("balltexture.png")]
+    public IActionResult GetWrongWayImage()
+    {
+        return new PhysicalFileResult(Path.Join(BasePath, "balltexture.png"), "image/png");
+    }
 }

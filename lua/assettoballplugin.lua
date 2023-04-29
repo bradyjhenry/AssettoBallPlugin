@@ -1,3 +1,5 @@
+local BaseURL = "http://" .. ac.getServerIP() .. ":" .. ac.getServerPortHTTP() .. "/AssettoBallPlugin/"
+
 Ball = {}
 Ball.__index = Ball
 
@@ -10,15 +12,6 @@ function Ball.new(position, velocity)
 end
 
 local recievedResponse = false; 
-
-
-function Ball:update(dt)
-    self.position = self.position + self.velocity * dt
-    local rotationAxis, rotationAngle = self:getRotation(dt)
-    local rotationAngleRad = math.rad(-rotationAngle) -- convert to radians and negate the angle
-    local deltaRotation = quat_fromAxisAngle(rotationAxis, rotationAngleRad)
-    self.rotationQuaternion = quat_multiply(deltaRotation, self.rotationQuaternion)
-end
 
 function quat_fromAxisAngle(axis, angle)
     local half_angle = angle * 0.5
@@ -86,7 +79,7 @@ function onServerUpdate(recievedPosition, recievedVelocity)
     local positionThreshold = 0.1
     local velocityThreshold = 0.1
 
-    local lerpFactor = 0.1
+    local lerpFactor = 0.1 -- This is the base lerp factor you can adjust
 
     if positionError:length() > positionThreshold then
         ball.position = vec3Lerp(ball.position, recievedPosition, lerpFactor)
@@ -95,6 +88,14 @@ function onServerUpdate(recievedPosition, recievedVelocity)
     if velocityError:length() > velocityThreshold then
         ball.velocity = vec3Lerp(ball.velocity, recievedVelocity, lerpFactor)
     end
+end
+
+function Ball:update(dt)
+    self.position = self.position + self.velocity * dt
+    local rotationAxis, rotationAngle = self:getRotation(dt)
+    local rotationAngleRad = math.rad(-rotationAngle) -- convert to radians and negate the angle
+    local deltaRotation = quat_fromAxisAngle(rotationAxis, rotationAngleRad)
+    self.rotationQuaternion = quat_multiply(deltaRotation, self.rotationQuaternion)
 end
 
 function vec3Lerp(a, b, t)
@@ -132,9 +133,6 @@ function vec3_cross(a, b)
     )
 end
 
-local rotationAxis, rotationAngle
-local rotationAngleRad
-
 
 function rotatePointAroundAxis(point, axis, angle)
     local cosAngle = math.cos(angle)
@@ -150,8 +148,6 @@ function rotatePointAroundAxis(point, axis, angle)
 
     return rotatedPoint
 end
-
-
 
 function script.update(dt)
     if recievedResponse then
@@ -234,6 +230,6 @@ function script.draw3D(dt)
     render.setCullMode(render.CullMode.ShadowsDouble)
 
     if recievedResponse then
-        DrawSphere(ball.position, 1, 8, 8, ball.rotationQuaternion)
+        DrawSphere(ball.position, 1, 8, 8, ball.rotationQuaternion, ballTex)
     end
 end

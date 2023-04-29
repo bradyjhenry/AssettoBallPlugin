@@ -13,3 +13,4 @@ C:\Users\me\OneDrive\Documents\Github\AssettoServer\AssettoBallPlugin\obj\Releas
 C:\Users\me\OneDrive\Documents\Github\AssettoServer\AssettoBallPlugin\obj\Release\net7.0\refint\AssettoBallPlugin.dll
 C:\Users\me\OneDrive\Documents\Github\AssettoServer\AssettoBallPlugin\obj\Release\net7.0\AssettoBallPlugin.genruntimeconfig.cache
 C:\Users\me\OneDrive\Documents\Github\AssettoServer\AssettoBallPlugin\obj\Release\net7.0\ref\AssettoBallPlugin.dll
+C:\Users\me\OneDrive\Documents\Github\AssettoServer\AssettoBallPlugin\bin\Release\net7.0\Res\balltexture.png
