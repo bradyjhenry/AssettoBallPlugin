@@ -1,4 +1,6 @@
-local ballPos = vec3(0,0,0)
+local baseUrl = "http://" .. ac.getServerIP() .. ":" .. ac.getServerPortHTTP() .. "/AssettoBallPlugin/"
+
+local ballPos = vec3(0, 0, 0)
 
 local GameState = {
     WAITING = 0,
@@ -13,7 +15,6 @@ local function vec3_cross(a, b)
         a.x * b.y - a.y * b.x
     )
 end
-
 
 --ballfunctoins
 
@@ -48,7 +49,6 @@ local function angleToBallXZ(cameraPos, cameraForward, ballPos)
     }
 
     local angle = signedAngleBetweenVectorsXZ(cameraForwardXZ, vecToBallXZ)
-    angle = angle + 90 -- Add an offset of 90 degrees
 
     return angle
 end
@@ -62,7 +62,7 @@ local function ballIsVisible()
     local fov = ac.getCameraFOV()
 
     -- Calculate the angle threshold based on the camera FOV
-    local angleThreshold = fov * 0.5  -- 90% of half of the FOV (experiment with the 0.9 factor)
+    local angleThreshold = fov * 0.5 -- 90% of half of the FOV (experiment with the 0.9 factor)
 
     return math.abs(angle) < angleThreshold
 end
@@ -83,11 +83,8 @@ local function drawArrowToBall()
     local endpointX = centerX + math.cos(math.rad(angle)) * arrowLength
     local endpointY = centerY - math.sin(math.rad(angle)) * arrowLength
 
-    ui.drawLine(vec2(centerX, centerY), vec2(endpointX, endpointY), rgbm(1, 1, 1, 1), 2)
-    ui.drawTriangleFilled(vec2(endpointX - 10, endpointY - 10), vec2(endpointX - 10, endpointY + 10), vec2(endpointX + 10, endpointY), rgbm(1, 1, 1, 1))
+    ui.drawImage(baseUrl .. "balltexture.png", vec2(endpointX, endpointY), endpointX - 10, endpointY + 10)
 end
-
-
 
 
 local function drawGameScore(score)

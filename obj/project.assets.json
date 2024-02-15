@@ -552,15 +552,15 @@
           "lib/net7.0/_._": {}
         }
       },
-      "CXuesong.Luaon/0.2.1": {
+      "CXuesong.Luaon/0.2.7": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/Luaon.NET.dll": {
+          "lib/net6.0/Luaon.NET.dll": {
             "related": ".pdb;.xml"
           }
         },
         "runtime": {
-          "lib/netstandard2.0/_._": {
+          "lib/net6.0/_._": {
             "related": ".pdb;.xml"
           }
         }
@@ -631,7 +631,7 @@
           }
         }
       },
-      "FluentValidation/11.5.1": {
+      "FluentValidation/11.5.2": {
         "type": "package",
         "compile": {
           "lib/net7.0/FluentValidation.dll": {
@@ -766,7 +766,7 @@
           }
         }
       },
-      "Microsoft.AspNetCore.JsonPatch/7.0.4": {
+      "Microsoft.AspNetCore.JsonPatch/7.0.5": {
         "type": "package",
         "dependencies": {
           "Microsoft.CSharp": "4.7.0",
@@ -783,10 +783,10 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Mvc.NewtonsoftJson/7.0.4": {
+      "Microsoft.AspNetCore.Mvc.NewtonsoftJson/7.0.5": {
         "type": "package",
         "dependencies": {
-          "Microsoft.AspNetCore.JsonPatch": "7.0.4",
+          "Microsoft.AspNetCore.JsonPatch": "7.0.5",
           "Newtonsoft.Json": "13.0.1",
           "Newtonsoft.Json.Bson": "1.0.2"
         },
@@ -1115,7 +1115,7 @@
           }
         }
       },
-      "NodaTime/3.1.8": {
+      "NodaTime/3.1.9": {
         "type": "package",
         "dependencies": {
           "System.Runtime.CompilerServices.Unsafe": "4.7.1"
@@ -1676,20 +1676,21 @@
           "App.Metrics.Reporting.Console": "4.3.0",
           "Autofac": "7.0.0",
           "Autofac.Extensions.DependencyInjection": "8.0.0",
+          "CXuesong.Luaon": "0.2.7",
           "CXuesong.Luaon.Json": "0.2.1",
           "CommandLineParser": "2.9.1",
           "CommunityToolkit.Common": "8.1.0",
           "CommunityToolkit.Mvvm": "8.1.0",
           "DotNext.IO": "4.12.0",
           "DotNext.Unsafe": "4.12.0",
-          "FluentValidation": "11.5.1",
+          "FluentValidation": "11.5.2",
           "Grpc.Net.Client": "2.52.0",
           "Humanizer.Core": "2.14.1",
           "JetBrains.Annotations": "2022.3.1",
           "McMaster.NETCore.Plugins": "1.4.0",
-          "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "7.0.4",
+          "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "7.0.5",
           "Newtonsoft.Json": "13.0.3",
-          "NodaTime": "3.1.8",
+          "NodaTime": "3.1.9",
           "Open.NAT": "2.1.0",
           "Polly": "7.2.3",
           "Qmmands": "5.0.2",
@@ -2298,15 +2299,18 @@
         "lib/net7.0/Supercluster.KDTree.dll"
       ]
     },
-    "CXuesong.Luaon/0.2.1": {
-      "sha512": "ZG03wKvwd5z7FRnn6OKpJL9TTalgo6eOxBddvYULyR+kjz/NjPK1ulmMBHUSApxef0AfJQGZSOnX8v7J2J+8gw==",
+    "CXuesong.Luaon/0.2.7": {
+      "sha512": "o+X0pDzVnMsRDa8Q0I/647rNRWWRHeToq758pZIzeB4WXVZwWCMWc770iW5ewDsZXZccCkg7fiCni65OqJoIvg==",
       "type": "package",
-      "path": "cxuesong.luaon/0.2.1",
+      "path": "cxuesong.luaon/0.2.7",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "cxuesong.luaon.0.2.1.nupkg.sha512",
+        "cxuesong.luaon.0.2.7.nupkg.sha512",
         "cxuesong.luaon.nuspec",
+        "lib/net6.0/Luaon.NET.dll",
+        "lib/net6.0/Luaon.NET.pdb",
+        "lib/net6.0/Luaon.NET.xml",
         "lib/netstandard1.1/Luaon.NET.dll",
         "lib/netstandard1.1/Luaon.NET.pdb",
         "lib/netstandard1.1/Luaon.NET.xml",
@@ -2374,16 +2378,16 @@
         "logo.png"
       ]
     },
-    "FluentValidation/11.5.1": {
-      "sha512": "0h1Q5lNOLLyYTWMJmyNoMqhY4CBRvvUWvJP1R4F2CnmmzuWwvB0A8aVmw5+lOuwYnwUwCRrdeMLbc81F38ahNQ==",
+    "FluentValidation/11.5.2": {
+      "sha512": "kj/hW/iusp2zq1Vt1YPLgDj6UG0DhoJXGkLwjLwm3j7vUtRF8DVA5vHJfItG3BxDjLWJUR2pvw8fK7rnuysZNA==",
       "type": "package",
-      "path": "fluentvalidation/11.5.1",
+      "path": "fluentvalidation/11.5.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
         "fluent-validation-icon.png",
-        "fluentvalidation.11.5.1.nupkg.sha512",
+        "fluentvalidation.11.5.2.nupkg.sha512",
         "fluentvalidation.nuspec",
         "lib/net5.0/FluentValidation.dll",
         "lib/net5.0/FluentValidation.xml",
@@ -2574,10 +2578,10 @@
         "mcmaster.netcore.plugins.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.JsonPatch/7.0.4": {
-      "sha512": "Ign6gpOinYLePR66lVRHhh3qY9sBiVwvp2P3kjYIi5yRd/60BC5kQb+NZWqaIz1/8BXnVqdRE2baEKDm5fU3gg==",
+    "Microsoft.AspNetCore.JsonPatch/7.0.5": {
+      "sha512": "WTD0lUlrQEHF0eWlnwJJgBYK1WDI2KHeCLi46YY0mTOebwg+58l/lj+A3EerwC0aMyTB/yLaamjkCRRDVupCeA==",
       "type": "package",
-      "path": "microsoft.aspnetcore.jsonpatch/7.0.4",
+      "path": "microsoft.aspnetcore.jsonpatch/7.0.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2589,14 +2593,14 @@
         "lib/net7.0/Microsoft.AspNetCore.JsonPatch.xml",
         "lib/netstandard2.0/Microsoft.AspNetCore.JsonPatch.dll",
         "lib/netstandard2.0/Microsoft.AspNetCore.JsonPatch.xml",
-        "microsoft.aspnetcore.jsonpatch.7.0.4.nupkg.sha512",
+        "microsoft.aspnetcore.jsonpatch.7.0.5.nupkg.sha512",
         "microsoft.aspnetcore.jsonpatch.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.Mvc.NewtonsoftJson/7.0.4": {
-      "sha512": "o7gsUVT5HjBWBOeh8OaZSIoKBr5gCZdBfThivMr8Xh3IPGcQDO1cGHzBTaQQ/DoxhPnducXacCl9On5GFxcOxw==",
+    "Microsoft.AspNetCore.Mvc.NewtonsoftJson/7.0.5": {
+      "sha512": "zOhqXibiA14gy0rFkvvSp0BYnz3lsZ82R9vXJ3H+KCz+TXWIjP6wuqwc97bc00ppCB2oK4jQbii+q9phv18WAg==",
       "type": "package",
-      "path": "microsoft.aspnetcore.mvc.newtonsoftjson/7.0.4",
+      "path": "microsoft.aspnetcore.mvc.newtonsoftjson/7.0.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2604,7 +2608,7 @@
         "THIRD-PARTY-NOTICES.TXT",
         "lib/net7.0/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll",
         "lib/net7.0/Microsoft.AspNetCore.Mvc.NewtonsoftJson.xml",
-        "microsoft.aspnetcore.mvc.newtonsoftjson.7.0.4.nupkg.sha512",
+        "microsoft.aspnetcore.mvc.newtonsoftjson.7.0.5.nupkg.sha512",
         "microsoft.aspnetcore.mvc.newtonsoftjson.nuspec"
       ]
     },
@@ -3078,10 +3082,10 @@
         "newtonsoft.json.bson.nuspec"
       ]
     },
-    "NodaTime/3.1.8": {
-      "sha512": "HDLsLM2T5YHe6kuQg96CpQIPM+nmeji6KZ7M8zRU6SwODQeqqUB9jFx20MLy2D88Z7yAwxKBSYEls07nb7d0WA==",
+    "NodaTime/3.1.9": {
+      "sha512": "EzjwDOtsETlXWBDE6qvTQqc3guP+9xrAOf9j1mHL++UD4VeZay+dbCPNnXyZhoQMkKAOZ/+hIOtz7STl0Rkknw==",
       "type": "package",
-      "path": "nodatime/3.1.8",
+      "path": "nodatime/3.1.9",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3091,7 +3095,7 @@
         "lib/netstandard2.0/NodaTime.dll",
         "lib/netstandard2.0/NodaTime.pdb",
         "lib/netstandard2.0/NodaTime.xml",
-        "nodatime.3.1.8.nupkg.sha512",
+        "nodatime.3.1.9.nupkg.sha512",
         "nodatime.nuspec"
       ]
     },
@@ -3941,19 +3945,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\me\\.nuget\\packages\\": {}
+    "C:\\Users\\Brady\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\me\\OneDrive\\Documents\\Github\\AssettoServer\\AssettoBallPlugin\\AssettoBallPlugin.csproj",
+      "projectUniqueName": "P:\\ProgrammingProjects\\Assetto\\Projects\\ServerPlugin\\AssettoBallPlugin\\AssettoBallPlugin.csproj",
       "projectName": "AssettoBallPlugin",
-      "projectPath": "C:\\Users\\me\\OneDrive\\Documents\\Github\\AssettoServer\\AssettoBallPlugin\\AssettoBallPlugin.csproj",
-      "packagesPath": "C:\\Users\\me\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\me\\OneDrive\\Documents\\Github\\AssettoServer\\AssettoBallPlugin\\obj\\",
+      "projectPath": "P:\\ProgrammingProjects\\Assetto\\Projects\\ServerPlugin\\AssettoBallPlugin\\AssettoBallPlugin.csproj",
+      "packagesPath": "C:\\Users\\Brady\\.nuget\\packages\\",
+      "outputPath": "P:\\ProgrammingProjects\\Assetto\\Projects\\ServerPlugin\\AssettoBallPlugin\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\me\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Brady\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3961,14 +3972,15 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\me\\OneDrive\\Documents\\Github\\AssettoServer\\AssettoServer\\AssettoServer.csproj": {
-              "projectPath": "C:\\Users\\me\\OneDrive\\Documents\\Github\\AssettoServer\\AssettoServer\\AssettoServer.csproj",
+            "P:\\ProgrammingProjects\\Assetto\\Projects\\ServerPlugin\\AssettoServer\\AssettoServer.csproj": {
+              "projectPath": "P:\\ProgrammingProjects\\Assetto\\Projects\\ServerPlugin\\AssettoServer\\AssettoServer.csproj",
               "excludeAssets": "runtime"
             }
           }
@@ -4005,7 +4017,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }

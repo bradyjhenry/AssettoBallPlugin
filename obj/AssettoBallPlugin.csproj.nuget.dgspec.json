@@ -1,20 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\me\\OneDrive\\Documents\\Github\\AssettoServer\\AssettoBallPlugin\\AssettoBallPlugin.csproj": {}
+    "P:\\ProgrammingProjects\\Assetto\\Projects\\ServerPlugin\\AssettoBallPlugin\\AssettoBallPlugin.csproj": {}
   },
   "projects": {
-    "C:\\Users\\me\\OneDrive\\Documents\\Github\\AssettoServer\\AssettoBallPlugin\\AssettoBallPlugin.csproj": {
+    "P:\\ProgrammingProjects\\Assetto\\Projects\\ServerPlugin\\AssettoBallPlugin\\AssettoBallPlugin.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\me\\OneDrive\\Documents\\Github\\AssettoServer\\AssettoBallPlugin\\AssettoBallPlugin.csproj",
+        "projectUniqueName": "P:\\ProgrammingProjects\\Assetto\\Projects\\ServerPlugin\\AssettoBallPlugin\\AssettoBallPlugin.csproj",
         "projectName": "AssettoBallPlugin",
-        "projectPath": "C:\\Users\\me\\OneDrive\\Documents\\Github\\AssettoServer\\AssettoBallPlugin\\AssettoBallPlugin.csproj",
-        "packagesPath": "C:\\Users\\me\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\me\\OneDrive\\Documents\\Github\\AssettoServer\\AssettoBallPlugin\\obj\\",
+        "projectPath": "P:\\ProgrammingProjects\\Assetto\\Projects\\ServerPlugin\\AssettoBallPlugin\\AssettoBallPlugin.csproj",
+        "packagesPath": "C:\\Users\\Brady\\.nuget\\packages\\",
+        "outputPath": "P:\\ProgrammingProjects\\Assetto\\Projects\\ServerPlugin\\AssettoBallPlugin\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\me\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Brady\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,14 +27,15 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\me\\OneDrive\\Documents\\Github\\AssettoServer\\AssettoServer\\AssettoServer.csproj": {
-                "projectPath": "C:\\Users\\me\\OneDrive\\Documents\\Github\\AssettoServer\\AssettoServer\\AssettoServer.csproj",
+              "P:\\ProgrammingProjects\\Assetto\\Projects\\ServerPlugin\\AssettoServer\\AssettoServer.csproj": {
+                "projectPath": "P:\\ProgrammingProjects\\Assetto\\Projects\\ServerPlugin\\AssettoServer\\AssettoServer.csproj",
                 "excludeAssets": "runtime"
               }
             }
@@ -66,21 +72,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\me\\OneDrive\\Documents\\Github\\AssettoServer\\AssettoServer.Hub.Contracts\\AssettoServer.Hub.Contracts.csproj": {
+    "P:\\ProgrammingProjects\\Assetto\\Projects\\ServerPlugin\\AssettoServer.Hub.Contracts\\AssettoServer.Hub.Contracts.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\me\\OneDrive\\Documents\\Github\\AssettoServer\\AssettoServer.Hub.Contracts\\AssettoServer.Hub.Contracts.csproj",
+        "projectUniqueName": "P:\\ProgrammingProjects\\Assetto\\Projects\\ServerPlugin\\AssettoServer.Hub.Contracts\\AssettoServer.Hub.Contracts.csproj",
         "projectName": "AssettoServer.Hub.Contracts",
-        "projectPath": "C:\\Users\\me\\OneDrive\\Documents\\Github\\AssettoServer\\AssettoServer.Hub.Contracts\\AssettoServer.Hub.Contracts.csproj",
-        "packagesPath": "C:\\Users\\me\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\me\\OneDrive\\Documents\\Github\\AssettoServer\\AssettoServer.Hub.Contracts\\obj\\",
+        "projectPath": "P:\\ProgrammingProjects\\Assetto\\Projects\\ServerPlugin\\AssettoServer.Hub.Contracts\\AssettoServer.Hub.Contracts.csproj",
+        "packagesPath": "C:\\Users\\Brady\\.nuget\\packages\\",
+        "outputPath": "P:\\ProgrammingProjects\\Assetto\\Projects\\ServerPlugin\\AssettoServer.Hub.Contracts\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\me\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Brady\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -88,6 +99,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -127,21 +139,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\me\\OneDrive\\Documents\\Github\\AssettoServer\\AssettoServer\\AssettoServer.csproj": {
+    "P:\\ProgrammingProjects\\Assetto\\Projects\\ServerPlugin\\AssettoServer.Shared\\AssettoServer.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\me\\OneDrive\\Documents\\Github\\AssettoServer\\AssettoServer\\AssettoServer.csproj",
-        "projectName": "AssettoServer",
-        "projectPath": "C:\\Users\\me\\OneDrive\\Documents\\Github\\AssettoServer\\AssettoServer\\AssettoServer.csproj",
-        "packagesPath": "C:\\Users\\me\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\me\\OneDrive\\Documents\\Github\\AssettoServer\\AssettoServer\\obj\\",
+        "projectUniqueName": "P:\\ProgrammingProjects\\Assetto\\Projects\\ServerPlugin\\AssettoServer.Shared\\AssettoServer.Shared.csproj",
+        "projectName": "AssettoServer.Shared",
+        "projectPath": "P:\\ProgrammingProjects\\Assetto\\Projects\\ServerPlugin\\AssettoServer.Shared\\AssettoServer.Shared.csproj",
+        "packagesPath": "C:\\Users\\Brady\\.nuget\\packages\\",
+        "outputPath": "P:\\ProgrammingProjects\\Assetto\\Projects\\ServerPlugin\\AssettoServer.Shared\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\me\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Brady\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -149,14 +166,86 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "P:\\ProgrammingProjects\\Assetto\\Projects\\ServerPlugin\\AssettoServer\\AssettoServer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "P:\\ProgrammingProjects\\Assetto\\Projects\\ServerPlugin\\AssettoServer\\AssettoServer.csproj",
+        "projectName": "AssettoServer",
+        "projectPath": "P:\\ProgrammingProjects\\Assetto\\Projects\\ServerPlugin\\AssettoServer\\AssettoServer.csproj",
+        "packagesPath": "C:\\Users\\Brady\\.nuget\\packages\\",
+        "outputPath": "P:\\ProgrammingProjects\\Assetto\\Projects\\ServerPlugin\\AssettoServer\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Brady\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\me\\OneDrive\\Documents\\Github\\AssettoServer\\AssettoServer.Hub.Contracts\\AssettoServer.Hub.Contracts.csproj": {
-                "projectPath": "C:\\Users\\me\\OneDrive\\Documents\\Github\\AssettoServer\\AssettoServer.Hub.Contracts\\AssettoServer.Hub.Contracts.csproj",
+              "P:\\ProgrammingProjects\\Assetto\\Projects\\ServerPlugin\\AssettoServer.Hub.Contracts\\AssettoServer.Hub.Contracts.csproj": {
+                "projectPath": "P:\\ProgrammingProjects\\Assetto\\Projects\\ServerPlugin\\AssettoServer.Hub.Contracts\\AssettoServer.Hub.Contracts.csproj",
+                "privateAssets": "all"
+              },
+              "P:\\ProgrammingProjects\\Assetto\\Projects\\ServerPlugin\\AssettoServer.Shared\\AssettoServer.Shared.csproj": {
+                "projectPath": "P:\\ProgrammingProjects\\Assetto\\Projects\\ServerPlugin\\AssettoServer.Shared\\AssettoServer.Shared.csproj",
                 "privateAssets": "all"
               }
             }
@@ -196,6 +285,10 @@
               "target": "Package",
               "version": "[8.0.0, )"
             },
+            "CXuesong.Luaon": {
+              "target": "Package",
+              "version": "[0.2.7, )"
+            },
             "CXuesong.Luaon.Json": {
               "target": "Package",
               "version": "[0.2.1, )"
@@ -234,7 +327,7 @@
             },
             "FluentValidation": {
               "target": "Package",
-              "version": "[11.5.1, )"
+              "version": "[11.5.2, )"
             },
             "Grpc.Net.Client": {
               "target": "Package",
@@ -254,7 +347,7 @@
             },
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
-              "version": "[7.0.4, )"
+              "version": "[7.0.5, )"
             },
             "Nerdbank.GitVersioning": {
               "suppressParent": "All",
@@ -267,7 +360,7 @@
             },
             "NodaTime": {
               "target": "Package",
-              "version": "[3.1.8, )"
+              "version": "[3.1.9, )"
             },
             "Open.NAT": {
               "target": "Package",
@@ -366,39 +459,39 @@
           "downloadDependencies": [
             {
               "name": "Microsoft.AspNetCore.App.Runtime.linux-arm64",
-              "version": "[7.0.5, 7.0.5]"
+              "version": "[7.0.4, 7.0.4]"
             },
             {
               "name": "Microsoft.AspNetCore.App.Runtime.linux-x64",
-              "version": "[7.0.5, 7.0.5]"
+              "version": "[7.0.4, 7.0.4]"
             },
             {
               "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
-              "version": "[7.0.5, 7.0.5]"
+              "version": "[7.0.4, 7.0.4]"
             },
             {
               "name": "Microsoft.NETCore.App.Host.linux-arm64",
-              "version": "[7.0.5, 7.0.5]"
+              "version": "[7.0.4, 7.0.4]"
             },
             {
               "name": "Microsoft.NETCore.App.Host.linux-x64",
-              "version": "[7.0.5, 7.0.5]"
+              "version": "[7.0.4, 7.0.4]"
             },
             {
               "name": "Microsoft.NETCore.App.Runtime.linux-arm64",
-              "version": "[7.0.5, 7.0.5]"
+              "version": "[7.0.4, 7.0.4]"
             },
             {
               "name": "Microsoft.NETCore.App.Runtime.linux-x64",
-              "version": "[7.0.5, 7.0.5]"
+              "version": "[7.0.4, 7.0.4]"
             },
             {
               "name": "Microsoft.NETCore.App.Runtime.win-x64",
-              "version": "[7.0.5, 7.0.5]"
+              "version": "[7.0.4, 7.0.4]"
             },
             {
               "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
-              "version": "[7.0.5, 7.0.5]"
+              "version": "[7.0.4, 7.0.4]"
             }
           ],
           "frameworkReferences": {
@@ -409,7 +502,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {
