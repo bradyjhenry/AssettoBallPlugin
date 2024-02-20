@@ -8,14 +8,6 @@ local GameState = {
     END = 2
 }
 
-local function vec3_cross(a, b)
-    return vec3(
-        a.y * b.z - a.z * b.y,
-        a.z * b.x - a.x * b.z,
-        a.x * b.y - a.y * b.x
-    )
-end
-
 --ballfunctoins
 
 local function signedAngleBetweenVectorsXZ(vec1, vec2)
@@ -38,19 +30,21 @@ end
 
 
 local function angleToBallXZ(cameraPos, cameraForward, ballPos)
-    local vecToBallXZ = {
-        x = ballPos.x - cameraPos.x,
-        z = ballPos.z - cameraPos.z
-    }
+    -- Calculate the vector from the camera to the ball in the XZ plane
+    local vecToBallXZ = vec3(ballPos.x - cameraPos.x, 0, ballPos.z - cameraPos.z)
 
-    local cameraForwardXZ = {
-        x = cameraForward.x,
-        z = cameraForward.z
-    }
+    -- Normalize the vectors for a pure direction comparison
+    
+    local normVecToBallXZ = vecToBallXZ:normalize()
+    local normCameraForward = vec3(cameraForward.x, 0, cameraForward.z):normalize()
 
-    local angle = signedAngleBetweenVectorsXZ(cameraForwardXZ, vecToBallXZ)
+    -- Calculate the angle using atan2 for a full range of angles (-pi to pi)
+    local angleRad = math.atan2(normVecToBallXZ.z, normVecToBallXZ.x) - math.atan2(normCameraForward.z, normCameraForward.x)
 
-    return angle
+    -- Convert radians to degrees for UI calculations, adjusting 
+    local angleDeg = angleRad * (180 / math.pi) - 90
+
+    return angleDeg
 end
 
 
@@ -58,13 +52,16 @@ local function ballIsVisible()
     local cameraPos = ac.getCameraPosition()
     local cameraForward = ac.getCameraForward()
 
+    -- Use the original angle calculation without the 90-degree UI offset
     local angle = angleToBallXZ(cameraPos, cameraForward, ballPos)
+    
+    -- Correcting the visibility logic to account for the 90-degree offset indirectly
+    local correctedAngle = angle + 90
+
+    -- FOV check
     local fov = ac.getCameraFOV()
-
-    -- Calculate the angle threshold based on the camera FOV
-    local angleThreshold = fov * 0.5 -- 90% of half of the FOV (experiment with the 0.9 factor)
-
-    return math.abs(angle) < angleThreshold
+    -- Ensure the angle is within the FOV, taking into account the corrected orientation
+    return math.abs(correctedAngle) <= fov / 2
 end
 
 
@@ -72,18 +69,31 @@ local function drawArrowToBall()
     local cameraPos = ac.getCameraPosition()
     local cameraForward = ac.getCameraForward()
 
+    -- Calculate the angle to the ball in the XZ plane
     local angle = angleToBallXZ(cameraPos, cameraForward, ballPos)
-
-    -- Calculate the center point of the screen
+    
+    -- UI properties
     local centerX = ui.windowWidth() / 2
     local centerY = ui.windowHeight() / 2
+    local indicatorDistance = 50 -- Distance from screen center to draw the arrow
+    local arrowSize = 20 -- Size of the arrow
 
-    -- Calculate the endpoint of the arrow
-    local arrowLength = 100
-    local endpointX = centerX + math.cos(math.rad(angle)) * arrowLength
-    local endpointY = centerY - math.sin(math.rad(angle)) * arrowLength
+    -- Calculate the base position of the arrow on the screen edge in the direction of the ball
+    local baseX = centerX + indicatorDistance * math.cos(math.rad(angle))
+    local baseY = centerY + indicatorDistance * math.sin(math.rad(angle))
+    
+    -- Calculate points for the arrow head
+    local tipX = baseX + arrowSize * math.cos(math.rad(angle))
+    local tipY = baseY + arrowSize * math.sin(math.rad(angle))
+    local leftX = baseX + arrowSize * math.cos(math.rad(angle + 120))
+    local leftY = baseY + arrowSize * math.sin(math.rad(angle + 120))
+    local rightX = baseX + arrowSize * math.cos(math.rad(angle - 120))
+    local rightY = baseY + arrowSize * math.sin(math.rad(angle - 120))
 
-    ui.drawImage(baseUrl .. "balltexture.png", vec2(endpointX, endpointY), endpointX - 10, endpointY + 10)
+    -- Draw the arrow
+    ui.drawLine(vec2(centerX, centerY), vec2(tipX, tipY), 2, rgb(255, 255, 255)) -- Line from base to tip
+    ui.drawLine(vec2(leftX, leftY), vec2(tipX, tipY), 2, rgb(255, 255, 255)) -- Left side of arrow head
+    ui.drawLine(vec2(rightX, rightY), vec2(tipX, tipY), 2, rgb(255, 255, 255)) -- Right side of arrow head
 end
 
 

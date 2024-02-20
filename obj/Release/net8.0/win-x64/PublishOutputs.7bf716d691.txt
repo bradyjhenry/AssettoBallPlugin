@@ -1,0 +1,9 @@
+P:\ProgrammingProjects\Assetto\Projects\AssettoServer\AssettoBallPlugin\bin\Release\net7.0\publish\linux-x64\Res\balltexture.png
+P:\ProgrammingProjects\Assetto\Projects\AssettoServer\AssettoBallPlugin\bin\Release\net7.0\publish\linux-x64\AssettoBallPlugin.dll
+P:\ProgrammingProjects\Assetto\Projects\AssettoServer\AssettoBallPlugin\bin\Release\net7.0\publish\linux-x64\AssettoBallPlugin.deps.json
+P:\ProgrammingProjects\Assetto\Projects\AssettoServer\AssettoBallPlugin\bin\Release\net7.0\publish\linux-x64\AssettoBallPlugin.runtimeconfig.json
+P:\ProgrammingProjects\Assetto\Projects\AssettoServer\AssettoBallPlugin\bin\Release\net7.0\publish\linux-x64\BepuPhysics.dll
+P:\ProgrammingProjects\Assetto\Projects\AssettoServer\AssettoBallPlugin\bin\Release\net7.0\publish\linux-x64\BepuUtilities.dll
+P:\ProgrammingProjects\Assetto\Projects\AssettoServer\AssettoBallPlugin\bin\Release\net7.0\publish\linux-x64\Newtonsoft.Json.dll
+P:\ProgrammingProjects\Assetto\Projects\AssettoServer\AssettoBallPlugin\bin\Release\net7.0\publish\linux-x64\Serilog.dll
+P:\ProgrammingProjects\Assetto\Projects\AssettoServer\AssettoBallPlugin\bin\Release\net7.0\publish\linux-x64\AssettoServer.Shared.dll

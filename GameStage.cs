@@ -1,23 +1,38 @@
 ﻿using BepuPhysics;
 using BepuPhysics.Collidables;
 using BepuPhysics.Constraints;
+using BepuUtilities.Memory;
+using Serilog;
+using System.Globalization;
 using System.Numerics;
+using Mesh = BepuPhysics.Collidables.Mesh;
 
 namespace AssettoBallPlugin;
 public class GameStage
 {
     // Stage properties
-    private float _floorWidth { get; set; }
-    private float _floorLength { get; set; }
-    private float _wallHeight { get; set; }
+    private string _meshfilepath {  get; set; }
+
+    public StaticHandle StaticHandle { get; set; }
 
     public SimpleMaterial Material { get; set; }
 
-    public GameStage(float floorWidth, float floorLength, float wallHeight)
+    public GameStage(string meshfilename)
     {
-        _floorWidth = floorWidth;
-        _floorLength = floorLength;
-        _wallHeight = wallHeight;
+        string assemblyLocation = System.Reflection.Assembly.GetExecutingAssembly().Location;
+        string basePath = Path.GetDirectoryName(assemblyLocation);
+        string relativePath = Path.Combine(basePath, "Res", meshfilename);
+
+        if (File.Exists(relativePath))
+        {
+            _meshfilepath = relativePath;
+        }
+        else
+        {
+            Log.Debug(relativePath);
+            throw new Exception("Stage file not found!");
+        }
+
 
         Material = new SimpleMaterial
         {
@@ -29,72 +44,61 @@ public class GameStage
 
     public void AddToSimulation(Simulation simulation, CollidableProperty<SimpleMaterial> collidableMaterials)
     {
+        BufferPool pool = new BufferPool();
+        Mesh meshContent = LoadMeshFromObj(_meshfilepath, pool);
+        var staticShapeIndex = simulation.Shapes.Add(meshContent);
 
-        // Add a floor to the simulation.
-        var floor = new Box(_floorWidth, 1, _floorLength);
-        var floorIndex = simulation.Shapes.Add(floor);
-        var floorPose = new RigidPose(new Vector3(0, -0.5f, 0)); // Position the floor at 0
-
-        collidableMaterials.Allocate(simulation.Statics.Add(new StaticDescription(floorPose, floorIndex))) = Material;
-
-        var wallThickness = 5;
-
-        var cornerRadius = 10;
-
-        // Left wall
-        AddWall(simulation, new Vector3(-_floorWidth / 2 - wallThickness / 2, _wallHeight / 2, 0), new Vector3(wallThickness, _wallHeight, _floorLength));
-
-        // Right wall
-        AddWall(simulation, new Vector3(_floorWidth / 2 + wallThickness / 2, _wallHeight / 2, 0), new Vector3(wallThickness, _wallHeight, _floorLength));
-
-        // Back wall
-        AddWall(simulation, new Vector3(0, _wallHeight / 2, -_floorLength / 2 - wallThickness / 2), new Vector3(_floorWidth, _wallHeight, wallThickness));
-
-        // Front wall
-        AddWall(simulation, new Vector3(0, _wallHeight / 2, _floorLength / 2 + wallThickness / 2), new Vector3(_floorWidth, _wallHeight, wallThickness));
-
-        AddInnerRoundedCorner(simulation, new Vector3(-_floorWidth / 2 + cornerRadius, _wallHeight / 2, -_floorLength / 2 + cornerRadius), cornerRadius, _wallHeight);
-        AddInnerRoundedCorner(simulation, new Vector3(-_floorWidth / 2 + cornerRadius, _wallHeight / 2, _floorLength / 2 - cornerRadius), cornerRadius, _wallHeight);
-        AddInnerRoundedCorner(simulation, new Vector3(_floorWidth / 2 - cornerRadius, _wallHeight / 2, -_floorLength / 2 + cornerRadius), cornerRadius, _wallHeight);
-        AddInnerRoundedCorner(simulation, new Vector3(_floorWidth / 2 - cornerRadius, _wallHeight / 2, _floorLength / 2 - cornerRadius), cornerRadius, _wallHeight);
+        var staticDescription = new StaticDescription
+        {
+            Shape = staticShapeIndex,
+            Pose = new RigidPose
+            {
+                Position = new Vector3(0, 0, 0),
+            }
+        };
+        StaticHandle = simulation.Statics.Add(staticDescription);
     }
 
-    private void AddWall(Simulation simulation, Vector3 position, Vector3 dimensions, Quaternion? rotation = null)
+    public static Mesh LoadMeshFromObj(string filePath, BufferPool pool)
     {
-        var wallShape = new Box(dimensions.X, dimensions.Y, dimensions.Z);
-        var wallShapeIndex = simulation.Shapes.Add(wallShape);
+        var vertices = new List<Vector3>();
+        var triangles = new List<Triangle>();
 
-        var wallPose = new RigidPose
+        foreach (var line in File.ReadAllLines(filePath))
         {
-            Position = position,
-            Orientation = rotation ?? Quaternion.Identity
-        };
+            if (line.StartsWith("v "))
+            {
+                var parts = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                var vertex = new Vector3(
+                    float.Parse(parts[1], CultureInfo.InvariantCulture),
+                    float.Parse(parts[2], CultureInfo.InvariantCulture),
+                    float.Parse(parts[3], CultureInfo.InvariantCulture));
+                vertices.Add(vertex);
+            }
+            else if (line.StartsWith("f "))
+            {
+                var parts = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                var index0 = int.Parse(parts[1].Split('/')[0]) - 1;
+                var index1 = int.Parse(parts[2].Split('/')[0]) - 1;
+                var index2 = int.Parse(parts[3].Split('/')[0]) - 1;
 
-        var wallDescription = new StaticDescription
-        {
-            Pose = wallPose,
-            Shape = wallShapeIndex,
-        };
-
-        simulation.Statics.Add(wallDescription);
-    }
-
-
-    private void AddInnerRoundedCorner(Simulation simulation, Vector3 cornerCenter, float cornerRadius, float wallHeight)
-    {
-        int numSegments = 4;
-        double angleIncrement = Math.PI / 2 / numSegments;
-
-        double angleOffset = Math.Atan2(cornerCenter.Z, cornerCenter.X) + Math.PI / 4;
-
-        for (int i = 0; i < numSegments; i++)
-        {
-            double angle = angleOffset - i * angleIncrement;
-            Vector3 segmentPosition = cornerCenter + new Vector3((cornerRadius - 0.5f) * (float)Math.Cos(angle), 0, (cornerRadius - 0.5f) * (float)Math.Sin(angle));
-            Quaternion rotation = Quaternion.CreateFromAxisAngle(Vector3.UnitY, -(float)angle - (float)Math.PI / 2);
-
-            AddWall(simulation, segmentPosition, new Vector3(cornerRadius * (float)angleIncrement, wallHeight, 1), rotation);
+                var triangle = new Triangle(vertices[index0], vertices[index1], vertices[index2]);
+                triangles.Add(triangle);
+            }
         }
-    }
 
+        // Convert list to buffer for BepuPhysics
+        pool.Take(triangles.Count, out Buffer<Triangle> triangleBuffer);
+        for (int i = 0; i < triangles.Count; i++)
+        {
+            triangleBuffer[i] = triangles[i];
+        }
+
+        var mesh = new Mesh(triangleBuffer, new Vector3(1, 1, 1), pool);
+
+        // Remember to return the buffer when done with the mesh if you're not storing it in a simulation.
+        // This example assumes you'll add the mesh to a simulation and manage its lifetime accordingly.
+
+        return mesh;
+    }
 }

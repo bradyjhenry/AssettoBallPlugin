@@ -1,0 +1,6 @@
+P:\ProgrammingProjects\Assetto\Projects\AssettoServer\AssettoBallPlugin\obj\Release\net8.0\linux-x64\AssettoBallPlugin.csproj.AssemblyReference.cache
+P:\ProgrammingProjects\Assetto\Projects\AssettoServer\AssettoBallPlugin\obj\Release\net8.0\linux-x64\AssettoBallPlugin.GeneratedMSBuildEditorConfig.editorconfig
+P:\ProgrammingProjects\Assetto\Projects\AssettoServer\AssettoBallPlugin\obj\Release\net8.0\linux-x64\AssettoBallPlugin.AssemblyInfoInputs.cache
+P:\ProgrammingProjects\Assetto\Projects\AssettoServer\AssettoBallPlugin\obj\Release\net8.0\linux-x64\AssettoBallPlugin.AssemblyInfo.cs
+P:\ProgrammingProjects\Assetto\Projects\AssettoServer\AssettoBallPlugin\obj\Release\net8.0\linux-x64\AssettoBallPlugin.csproj.CoreCompileInputs.cache
+P:\ProgrammingProjects\Assetto\Projects\AssettoServer\AssettoBallPlugin\obj\Release\net8.0\linux-x64\AssettoBallPlugin.sourcelink.json
