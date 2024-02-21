@@ -1,3 +1,5 @@
+--Lots of math in this one, we're basically abusing the CSP SDK to draw a ball...
+
 local BaseURL = "http://" .. ac.getServerIP() .. ":" .. ac.getServerPortHTTP() .. "/AssettoBallPlugin/"
 
 Ball = {}
@@ -79,7 +81,7 @@ function onServerUpdate(recievedPosition, recievedVelocity)
     local positionThreshold = 0.1
     local velocityThreshold = 0.1
 
-    local lerpFactor = 0.1 -- This is the base lerp factor you can adjust
+    local lerpFactor = 0.1 -- This is the base lerp factor 
 
     if positionError:length() > positionThreshold then
         ball.position = vec3Lerp(ball.position, recievedPosition, lerpFactor)
@@ -227,9 +229,8 @@ end
 
 function script.draw3D(dt)
     render.setDepthMode(render.DepthMode.LessEqual)
-    render.setCullMode(render.CullMode.ShadowsDouble)
 
     if recievedResponse then
-        DrawSphere(ball.position, 1, 8, 8, ball.rotationQuaternion, ballTex)
+        DrawSphere(ball.position, 1, 6, 6, ball.rotationQuaternion)
     end
 end

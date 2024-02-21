@@ -75,8 +75,8 @@ local function drawArrowToBall()
     -- UI properties
     local centerX = ui.windowWidth() / 2
     local centerY = ui.windowHeight() / 2
-    local indicatorDistance = 50 -- Distance from screen center to draw the arrow
-    local arrowSize = 20 -- Size of the arrow
+    local indicatorDistance = 100 -- Distance from screen center to draw the arrow
+    local arrowSize = 10 -- Size of the arrow
 
     -- Calculate the base position of the arrow on the screen edge in the direction of the ball
     local baseX = centerX + indicatorDistance * math.cos(math.rad(angle))
@@ -91,7 +91,7 @@ local function drawArrowToBall()
     local rightY = baseY + arrowSize * math.sin(math.rad(angle - 120))
 
     -- Draw the arrow
-    ui.drawLine(vec2(centerX, centerY), vec2(tipX, tipY), 2, rgb(255, 255, 255)) -- Line from base to tip
+    --ui.drawLine(vec2(centerX, centerY), vec2(tipX, tipY), 2, rgb(255, 255, 255)) -- Line from center to tip
     ui.drawLine(vec2(leftX, leftY), vec2(tipX, tipY), 2, rgb(255, 255, 255)) -- Left side of arrow head
     ui.drawLine(vec2(rightX, rightY), vec2(tipX, tipY), 2, rgb(255, 255, 255)) -- Right side of arrow head
 end
