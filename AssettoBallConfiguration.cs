@@ -9,6 +9,8 @@ public class AssettoBallConfiguration
 {
     public GameBallConfiguration GameBall { get; init; } = new();
     public GameStageConfiguration GameStage { get; init; } = new();
+
+    public GameStateConfiguration GameState { get; init; } = new();
 }
 
 [UsedImplicitly(ImplicitUseKindFlags.Assign, ImplicitUseTargetFlags.WithMembers)]
@@ -29,7 +31,7 @@ public class GameStageConfiguration
 public class GameStateConfiguration 
 {
     public int MinPlayers { get; set; } = 1;
-    public int MaxScore { get; set; } = 10;
+    public int WinningScore { get; set; } = 10;
 }
 
 
