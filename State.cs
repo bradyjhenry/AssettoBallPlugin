@@ -1,6 +1,6 @@
 ﻿namespace AssettoBallPlugin;
 
-public enum GameState
+public enum State
 {
     Initializing,
     WaitingForPlayers,

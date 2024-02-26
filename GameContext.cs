@@ -6,6 +6,8 @@ public class GameContext
     public AssettoBallConfiguration Configuration { get; }
     public Dictionary<int, EntryCarAssettoBall> Instances { get; private set; }
     public IGameStateChangeHandler StateChangeHandler { get; }
+    public GameManager GameManager { get; private set; } 
+
     public GameContext(IGameStateChangeHandler stateChangeHandler, AssettoBallConfiguration configuration, Dictionary<int, EntryCarAssettoBall> instances)
     {
         StateChangeHandler = stateChangeHandler;

@@ -83,7 +83,6 @@ public class EntryCarAssettoBall
 
         // Update the hitbox rotation
         hitbox.Pose.Orientation = quaternionRotation;
-
     }
 
     private void OnPositionUpdateReceived(EntryCar sender, in PositionUpdateIn positionUpdateIn)

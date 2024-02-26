@@ -2,5 +2,5 @@
 
 public interface IGameStateChangeHandler
 {
-    void OnStateChangeRequest(GameState newState);
+    void OnStateChangeRequest(State newState);
 }

@@ -21,7 +21,16 @@ public class PlayingState : IGameState
 
     private BodyReference _ballBody;
 
-    public void Enter(GameContext context)
+    private GameContext _gameContext;
+    private GameManager _gameManager;
+
+    public PlayingState(GameContext gameContext, GameManager gameManager)
+    {
+        _gameContext = gameContext;
+        _gameManager = gameManager;
+    }
+
+    public void Enter()
     {
 
         Log.Debug("We're Playing now");
@@ -31,16 +40,16 @@ public class PlayingState : IGameState
 
         _simulation = Simulation.Create(_bufferPool, basicCallbacks, new DemoPoseIntegratorCallbacks(new Vector3(0, -10, 0)), new SolveDescription(8, 1));
 
-        _stage = new GameStage(context.Configuration.GameStage.MeshOBJ);
+        _stage = new GameStage(_gameContext.Configuration.GameStage.MeshOBJ);
 
-        _ball = new GameBall(context.Configuration.GameBall.Radius, context.Configuration.GameBall.StartingPosition);
+        _ball = new GameBall(_gameContext.Configuration.GameBall.Radius, _gameContext.Configuration.GameBall.StartingPosition);
 
         _ball.AddToSimulation(_simulation, basicCallbacks.CollidableMaterials);
         _stage.AddToSimulation(_simulation, basicCallbacks.CollidableMaterials);
 
         _ballBody = _simulation.Bodies.GetBodyReference(_ball.BodyHandle);
 
-        foreach (var instance in context.Instances)
+        foreach (var instance in _gameContext.Instances)
         {
             if (instance.Value.EntryCar.Client != null)
             {
@@ -50,7 +59,7 @@ public class PlayingState : IGameState
 
     }
 
-    public void Update(GameContext context)
+    public void Update()
     {
         var spherePosition = _ballBody.Pose.Position;
         var sphereVelocity = _ballBody.Velocity.Linear;
@@ -60,11 +69,11 @@ public class PlayingState : IGameState
         if (IsOutOfBounds(spherePosition))
         {
             // Reset the sphere's position and velocity
-            _ballBody.Pose.Position = context.Configuration.GameBall.StartingPosition;
+            _ballBody.Pose.Position = _gameContext.Configuration.GameBall.StartingPosition;
             _ballBody.Velocity.Linear = Vector3.Zero;
         }
 
-        foreach (var instance in context.Instances)
+        foreach (var instance in _gameContext.Instances)
         {
             var client = instance.Value.EntryCar.Client;
             if (client == null || !client.HasSentFirstUpdate)
@@ -91,9 +100,8 @@ public class PlayingState : IGameState
                position.Z < -halfHeight || position.Z > halfHeight;
     }
 
-    public void Exit(GameContext context)
+    public void Exit()
     {
         // Logic to execute when exiting the Initializing state
     }
-
 }

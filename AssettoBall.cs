@@ -21,7 +21,7 @@ public class AssettoBall : CriticalBackgroundService, IAssettoServerAutostart, I
 
     private readonly AssettoBallConfiguration _configuration;
 
-    private GameStateManager _gameStateManager;
+    private StateManager _gameStateManager;
 
     public AssettoBall(EntryCarManager entryCarManager, Func<EntryCar, EntryCarAssettoBall> entryCarFactory, AssettoBallConfiguration configuration, ACServerConfiguration serverConfiguration, CSPServerScriptProvider scriptProvider, IHostApplicationLifetime applicationLifetime) : base(applicationLifetime)
     {
@@ -30,7 +30,7 @@ public class AssettoBall : CriticalBackgroundService, IAssettoServerAutostart, I
         _serverConfiguration = serverConfiguration;
         _configuration = configuration;
 
-        _gameStateManager = new GameStateManager(new GameContext(this, _configuration, _instances));
+        _gameStateManager = new StateManager(new GameContext(this, _configuration, _instances), new GameManager(_configuration));
         
         if (_serverConfiguration.Extra.EnableClientMessages)
         {
@@ -75,7 +75,7 @@ public class AssettoBall : CriticalBackgroundService, IAssettoServerAutostart, I
         }
     }
 
-    public void OnStateChangeRequest(GameState newState)
+    public void OnStateChangeRequest(State newState)
     {
         _gameStateManager.SetState(newState);
     }

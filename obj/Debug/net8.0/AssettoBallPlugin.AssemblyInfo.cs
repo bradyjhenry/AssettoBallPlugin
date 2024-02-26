@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AssettoBallPlugin")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+48ba2c0abfc6bfdf82eec11d49b2a4071aed55bf")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1976898c00c20d918fac4db99bb66f387ac2ef44")]
 [assembly: System.Reflection.AssemblyProductAttribute("AssettoBallPlugin")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AssettoBallPlugin")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
