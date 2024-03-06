@@ -7,9 +7,9 @@ namespace AssettoBallPlugin
         public List<Team> Teams { get; set; } = new List<Team>();
         public int WinningScore { get; set; }
 
-        public GameManager(AssettoBallConfiguration configration)
+        public GameManager(GameContext gameContext)
         {
-            WinningScore = configration.GameState.WinningScore;
+            WinningScore = gameContext.Configuration.GameState.WinningScore;
         }
 
         // Initialize game setup

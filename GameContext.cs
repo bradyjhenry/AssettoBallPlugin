@@ -4,18 +4,15 @@ namespace AssettoBallPlugin;
 public class GameContext
 {
     public AssettoBallConfiguration Configuration { get; }
-    public Dictionary<int, EntryCarAssettoBall> Instances { get; private set; }
-    public IGameStateChangeHandler StateChangeHandler { get; }
-    public GameManager GameManager { get; private set; } 
+    public Dictionary<int, GameEntryCar> Instances { get; private set; }
 
-    public GameContext(IGameStateChangeHandler stateChangeHandler, AssettoBallConfiguration configuration, Dictionary<int, EntryCarAssettoBall> instances)
+    public GameContext(AssettoBallConfiguration configuration, Dictionary<int, GameEntryCar> instances)
     {
-        StateChangeHandler = stateChangeHandler;
         Configuration = configuration;
         Instances = instances;
     }
 
-    public void UpdateInstances(Dictionary<int, EntryCarAssettoBall> instances)
+    public void UpdateInstances(Dictionary<int, GameEntryCar> instances)
     {
         Instances = instances;
     }

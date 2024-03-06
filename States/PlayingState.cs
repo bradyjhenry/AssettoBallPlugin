@@ -24,6 +24,8 @@ public class PlayingState : IGameState
     private GameContext _gameContext;
     private GameManager _gameManager;
 
+    public event Action<State> RequestStateChange;
+
     public PlayingState(GameContext gameContext, GameManager gameManager)
     {
         _gameContext = gameContext;

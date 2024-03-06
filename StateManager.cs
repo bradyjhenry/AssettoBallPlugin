@@ -13,16 +13,19 @@ public class StateManager
     public StateManager(GameContext gameContext, GameManager gameManager)
     {
 
-        StateChangeHandler = stateChangeHandler;
-
         _gameContext = gameContext;
         _gameManager = gameManager;
 
         _states = new Dictionary<State, IGameState>
         {
-            { State.Initializing, new InitializingState(_gameContext, _gameManager ) },
+            { State.Initializing, new InitializingState(_gameContext, _gameManager) },
             { State.Playing, new PlayingState(_gameContext, _gameManager) },
         };
+
+        foreach (var state in _states)
+        {
+            state.Value.RequestStateChange += SetState;
+        }
 
         _currentState = _states[State.Initializing];
         _currentState.Enter();

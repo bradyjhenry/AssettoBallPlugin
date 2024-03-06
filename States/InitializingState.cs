@@ -1,10 +1,13 @@
-﻿namespace AssettoBallPlugin.GameStates;
+﻿
+
+namespace AssettoBallPlugin.GameStates;
 
 public class InitializingState : IGameState
 {
     private GameContext _gameContext;
     private GameManager _gameManager;
 
+    public event Action<State> RequestStateChange;
     public InitializingState(GameContext gameContext, GameManager gameManager)
     {
         _gameContext = gameContext;
@@ -26,7 +29,7 @@ public class InitializingState : IGameState
 
             if (instance.Value.EntryCar.Status.EngineRpm > 2000)
             {
-                _gameContext.StateChangeHandler.OnStateChangeRequest(State.Playing);
+                RequestStateChange?.Invoke(State.Playing);
             }
         }
     }

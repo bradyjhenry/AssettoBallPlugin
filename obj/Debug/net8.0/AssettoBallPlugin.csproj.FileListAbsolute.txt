@@ -1,4 +1,3 @@
-P:\ProgrammingProjects\Assetto\Projects\AssettoServer\AssettoBallPlugin\bin\Debug\net8.0\Res\balltexture.png
 P:\ProgrammingProjects\Assetto\Projects\AssettoServer\AssettoBallPlugin\bin\Debug\net8.0\AssettoBallPlugin.deps.json
 P:\ProgrammingProjects\Assetto\Projects\AssettoServer\AssettoBallPlugin\bin\Debug\net8.0\AssettoBallPlugin.runtimeconfig.json
 P:\ProgrammingProjects\Assetto\Projects\AssettoServer\AssettoBallPlugin\bin\Debug\net8.0\AssettoBallPlugin.dll

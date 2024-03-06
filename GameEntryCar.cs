@@ -11,7 +11,7 @@ using BepuUtilities;
 
 namespace AssettoBallPlugin;
 
-public class EntryCarAssettoBall
+public class GameEntryCar
 {
 
     public EntryCar EntryCar { get; }
@@ -23,7 +23,7 @@ public class EntryCarAssettoBall
     public event EventHandler? ClientFirstUpdateSent;
 
 
-    public EntryCarAssettoBall(EntryCar entryCar)
+    public GameEntryCar(EntryCar entryCar)
     {
         EntryCar = entryCar;
         EntryCar.PositionUpdateReceived += OnPositionUpdateReceived;
