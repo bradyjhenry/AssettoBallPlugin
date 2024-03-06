@@ -21,7 +21,7 @@ public class AssettoBall : CriticalBackgroundService, IAssettoServerAutostart
 
     private readonly AssettoBallConfiguration _configuration;
 
-    private Game _game;
+    private Game? _game;
 
     public AssettoBall(EntryCarManager entryCarManager, Func<EntryCar, GameEntryCar> entryCarFactory, AssettoBallConfiguration configuration, ACServerConfiguration serverConfiguration, CSPServerScriptProvider scriptProvider, IHostApplicationLifetime applicationLifetime) : base(applicationLifetime)
     {
@@ -43,8 +43,6 @@ public class AssettoBall : CriticalBackgroundService, IAssettoServerAutostart
             throw new ConfigurationException("AssettoBall: EnableClientMessages must be set to true in extra_cfg man!");
         }
 
-        _game = new Game(_configuration);
-
         Log.Debug("AssettoBall Loaded My Man");
     }
 
@@ -57,7 +55,7 @@ public class AssettoBall : CriticalBackgroundService, IAssettoServerAutostart
             _instances.Add(entryCar.SessionId, entryCarAssettoBall);
         }
 
-        _game.SetInstances(_instances);
+        _game = new Game(_configuration, _instances);
 
         while (!stoppingToken.IsCancellationRequested)
         {
@@ -67,7 +65,7 @@ public class AssettoBall : CriticalBackgroundService, IAssettoServerAutostart
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Error during assettoball update");
+                Log.Error(ex, "Error during game update");
             }
             finally
             {
